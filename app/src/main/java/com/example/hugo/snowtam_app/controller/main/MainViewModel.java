@@ -1,4 +1,4 @@
-package com.example.hugo.snowtam_app.ui.main;
+package com.example.hugo.snowtam_app.controller.main;
 
 import android.arch.lifecycle.ViewModel;
 
