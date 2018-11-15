@@ -18,7 +18,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class Notam extends Thread{
 
-    // VOIR COMMENT 
+    // VOIR COMMENT
     public Notam(String name) throws MalformedURLException {
         super(name);
     }
