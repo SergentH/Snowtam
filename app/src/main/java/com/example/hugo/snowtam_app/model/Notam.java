@@ -16,9 +16,14 @@ import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Notam {
+public class Notam extends Thread{
 
-    public void tryNotam(String icaoCode) throws IOException {
+    // VOIR COMMENT 
+    public Notam(String name) throws MalformedURLException {
+        super(name);
+    }
+
+    public void run(String icaoCode) throws IOException {
         fetchNotams(icaoCode);
         System.out.println("waw");
     }

@@ -21,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
                     .commitNow();
         }
         try {
-            Notam myNotam = new Notam();
-            myNotam.tryNotam("ENBR");
+            Notam myNotam = new Notam("ENBR");
+            myNotam.start();
         } catch (java.io.IOException e) {
             e.printStackTrace();
         }
