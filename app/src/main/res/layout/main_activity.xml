@@ -1,7 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".controller.MainActivity" />
+    tools:context=".controller.MainActivity" >
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="SNOWTAM"
+            android:textAlignment="center"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/textAirportOne"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.01"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.26" />
+
+        <TextView
+            android:id="@+id/textAirportOne"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="143dp"
+            android:text="Airport 1 "
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textAirportTwo"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="44dp"
+            android:text="Airport 2"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textAirportOne" />
+
+        <TextView
+            android:id="@+id/textAirportThree"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="44dp"
+            android:text="Airport 3 "
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textAirportTwo" />
+
+        <TextView
+            android:id="@+id/textAirportFour"
+            android:layout_width="82dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="44dp"
+            android:text="Airport 4 "
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textAirportThree" />
+
+        <EditText
+            android:id="@+id/editAeOne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="134dp"
+            android:ems="10"
+            android:hint="OACI "
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toEndOf="@+id/textAirportOne"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/editAeTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="OACI"
+            android:inputType="textPersonName"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/textAirportTwo"
+            app:layout_constraintTop_toBottomOf="@+id/editAeOne" />
+
+        <EditText
+            android:id="@+id/editAeThree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="OACI"
+            android:inputType="textPersonName"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/textAirportThree"
+            app:layout_constraintTop_toBottomOf="@+id/editAeTwo" />
+
+        <EditText
+            android:id="@+id/editAeFour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="28dp"
+            android:ems="10"
+            android:hint="OACI"
+            android:inputType="textPersonName"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/textAirportFour"
+            app:layout_constraintTop_toBottomOf="@+id/editAeThree" />
+
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:text="Search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editAeFour" />
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
