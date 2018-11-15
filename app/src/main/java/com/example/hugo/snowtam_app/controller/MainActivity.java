@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
+import com.example.hugo.snowtam_app.model.Notam;
+
+import java.net.MalformedURLException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,5 +20,12 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
+        try {
+            Notam myNotam = new Notam();
+            myNotam.tryNotam("ENBR");
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
