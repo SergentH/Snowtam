@@ -20,7 +20,6 @@
             android:layout_marginTop="36dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:text="SNOWTAM"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold"
@@ -29,7 +28,8 @@
             app:layout_constraintHorizontal_bias="0.01"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.26" />
+            app:layout_constraintVertical_bias="0.26"
+            tools:text="snowtam" />
 
         <TextView
             android:id="@+id/textAirportOne"
@@ -85,7 +85,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="134dp"
             android:ems="10"
-            android:hint="OACI "
+            android:hint="ICAO"
             android:inputType="textPersonName"
             app:layout_constraintStart_toEndOf="@+id/textAirportOne"
             app:layout_constraintTop_toTopOf="parent" />
@@ -97,7 +97,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="28dp"
             android:ems="10"
-            android:hint="OACI"
+            android:hint="ICAO"
             android:inputType="textPersonName"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/textAirportTwo"
@@ -110,7 +110,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="28dp"
             android:ems="10"
-            android:hint="OACI"
+            android:hint="ICAO"
             android:inputType="textPersonName"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/textAirportThree"
@@ -123,7 +123,7 @@
             android:layout_marginStart="40dp"
             android:layout_marginTop="28dp"
             android:ems="10"
-            android:hint="OACI"
+            android:hint="ICAO"
             android:inputType="textPersonName"
             android:visibility="gone"
             app:layout_constraintStart_toEndOf="@+id/textAirportFour"
