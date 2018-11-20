@@ -1,5 +1,15 @@
 package com.example.hugo.snowtam_app.model;
 
+import android.content.Context;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 //import java.io.File;
 import java.io.DataOutputStream;
@@ -16,104 +26,52 @@ import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Notam extends Thread{
-
-    // VOIR COMMENT
-    public Notam(String name) throws MalformedURLException {
-        super(name);
-    }
-
-    public void run(String icaoCode) throws IOException {
-        fetchNotams(icaoCode);
-        System.out.println("waw");
-    }
-
-    private final URL NOTAM_URL = new URL( "https://pilotweb.nas.faa.gov"
-            +"/PilotWeb/notamRetrievalByICAOAction.do?method=displayByICAOs" );
-
-    public Notam() throws MalformedURLException {
-    }
-
-    private final String NOTAM_PARAM = "formatType=ICAO&retrieveLocId=%s&reportType=RAW"
-            +"&actionType=notamRetrievalByICAOs&openItems=&submit=View%%20NOTAMs";
+public class Notam{
 
 
-    //private ArrayList<String> fetchNotams( String icaoCode, File notamFile ) throws IOException {
-    private ArrayList<String> fetchNotams( String icaoCode ) throws IOException {
-        String params = String.format( NOTAM_PARAM, icaoCode );
 
-        HttpsURLConnection conn = (HttpsURLConnection) NOTAM_URL.openConnection();
-        //conn.setRequestProperty( "Connection", "close" );
-        //conn.setDoInput( true );
-        conn.setDoOutput( true );
-        //conn.setUseCaches( false );
-        ///conn.setConnectTimeout( 30*1000 );
-        //conn.setReadTimeout( 30*1000 );
-        //conn.setRequestMethod( "POST" );
-        //conn.setRequestProperty( "User-Agent", "" );
-        //conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded" );
-        //conn.setRequestProperty( "Content-Length", Integer.toString(params.length() ) );
+    static String basicURL ="https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=52604a70-ec93-11e8-acf9-1d6bfa3c323d&format=json&type=&Qcode=&locations=";
+    static String endURL ="&qstring=&states=&ICAOonly=";
 
-        // Write out the form parameters as the request body
-        DataOutputStream faa = new DataOutputStream(conn.getOutputStream());
-        faa.write( params.getBytes( "UTF-8" ) );
-        faa.close();
+    public static String createRequestURL(String listOfIACO){
+        String[] IACOtable = listOfIACO.trim().split("\\s+");
+        String fullURL = new String();
 
-        int response = conn.getResponseCode();
-        ArrayList<String> notamsArray = new ArrayList<>();
-        if ( response == HttpURLConnection.HTTP_OK ) {
-            // Request was successful, parse the html to extract notams
-            InputStream in = conn.getInputStream();
-            notamsArray = parseNotamsFromHtml( in );
-            in.close();
+        //add check IACO size ????
+        
+        switch (IACOtable.length) {
+            case 1:  fullURL = basicURL + IACOtable[0] + endURL;
+                break;
+            case 2:  fullURL = basicURL + IACOtable[0] + "," + IACOtable[1] + endURL;
+                break;
+            case 3:  fullURL = basicURL + IACOtable[0] + "," + IACOtable[1] + "," + IACOtable[2] + endURL;
+                break;
+            case 4:  fullURL  = basicURL + IACOtable[0] + "," + IACOtable[1] + "," + IACOtable[2] + "," + IACOtable[3] + endURL;
+                break;
 
-
-            // Write the NOTAMS to the cache file
-            /*BufferedOutputStream cache = new BufferedOutputStream(
-                    new FileOutputStream( notamFile ) );
-            for ( String Notam : notams ) {
-                cache.write( Notam.getBytes() );
-                cache.write( '\n' );
-            }
-            cache.close();*/
+            default: System.err.println("YOU MUST WRITE BETWEEN 1 AND 4 VALUES OF IACO");
+                break;
         }
-        return notamsArray;
+        return fullURL;
+    };
+
+    public static void sendRequest(String myRequestURL){
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                (Request.Method.GET, myRequestURL, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // do something mTextView.setText("Response: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO: Handle error
+
+                    }
+                });
+
     }
 
-    private ArrayList<String> parseNotamsFromHtml(InputStream in ) throws IOException {
-        ArrayList<String> notams = new ArrayList<>();
-
-        BufferedReader reader = new BufferedReader( new InputStreamReader( in ) );
-
-        String line;
-        boolean inside = false;
-        StringBuilder builder = null;
-        while ( ( line = reader.readLine() ) != null ) {
-            if ( !inside ) {
-                // Inspect the contents of all <pre> tags to find NOTAMs
-                if ( line.toUpperCase( Locale.US ).contains( "<PRE>" ) ) {
-                    builder = new StringBuilder();
-                    inside = true;
-                }
-            }
-            if ( inside ) {
-                builder.append( line );
-                builder.append( " " );
-                if ( line.toUpperCase( Locale.US ).contains( "</PRE>" ) ) {
-                    inside = false;
-                    int start = builder.indexOf( "!" );
-                    if ( start >= 0 ) {
-                        // Now get the actual inner contents
-                        int end = builder.indexOf( "SOURCE:" );
-                        String notam = builder.substring( start, end ).trim();
-                        // Normalize the whitespaces
-                        //Notam = whitespaces.matcher( Notam ).replaceAll( " " );
-                        notams.add( notam );
-                     }
-                }
-            }
-        }
-
-        return notams;
-    }
 }
