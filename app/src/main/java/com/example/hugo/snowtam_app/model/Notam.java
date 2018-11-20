@@ -5,6 +5,7 @@ import android.content.Context;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
@@ -38,7 +39,7 @@ public class Notam{
         String fullURL = new String();
 
         //add check IACO size ????
-        
+
         switch (IACOtable.length) {
             case 1:  fullURL = basicURL + IACOtable[0] + endURL;
                 break;
@@ -55,15 +56,16 @@ public class Notam{
         return fullURL;
     };
 
-    public static void sendRequest(String myRequestURL){
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                (Request.Method.GET, myRequestURL, null, new Response.Listener<JSONObject>() {
+    public static String sendRequest(String myRequestURL){
+        String requestResponse;
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (Request.Method.GET, myRequestURL, null, new Response.Listener<JSONObject>() {
 
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // do something mTextView.setText("Response: " + response.toString());
-                    }
-                }, new Response.ErrorListener() {
+            @Override
+            public void onResponse(JSONObject response) {
+                requestResponse = response.toString();
+                System.out.println(requestResponse);
+            }
+            }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -71,7 +73,8 @@ public class Notam{
 
                     }
                 });
+        return requestResponse;
 
-    }
+    };
 
 }
