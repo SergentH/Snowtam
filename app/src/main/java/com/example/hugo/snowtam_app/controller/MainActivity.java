@@ -3,10 +3,13 @@ package com.example.hugo.snowtam_app.controller;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.android.volley.Response;
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
 import com.example.hugo.snowtam_app.model.URL;
 import com.example.hugo.snowtam_app.model.RequestService;
+
+import org.json.JSONArray;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,10 +22,12 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
-        String response = RequestService.sendRequest(URL.createRequestURL("ENBR ENGM"),getApplicationContext());
 
-        System.out.println("DEBUG => RETOUR " + response);
-        System.out.println("DEBUG => RETOUR " + response);
+
+        RequestService.sendRequest(URL.createRequestURL("ENBR ENGM"),getApplicationContext());
+
+        System.out.println("DEBUG => RETOUR ");
+        System.out.println("DEBUG => RETOUR ");
 
         System.out.println("waw");
 
