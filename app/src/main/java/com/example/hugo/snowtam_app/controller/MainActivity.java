@@ -5,9 +5,8 @@ import android.os.Bundle;
 
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
-import com.example.hugo.snowtam_app.model.Notam;
-
-import java.net.MalformedURLException;
+import com.example.hugo.snowtam_app.model.URL;
+import com.example.hugo.snowtam_app.model.RequestService;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,12 +19,12 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
-        try {
-            Notam myNotam = new Notam("ENBR");
-            myNotam.start();
-        } catch (java.io.IOException e) {
-            e.printStackTrace();
-        }
+        String response = RequestService.sendRequest(URL.createRequestURL("ENBR ENGM"),getApplicationContext());
+
+        System.out.println("DEBUG => RETOUR " + response);
+        System.out.println("DEBUG => RETOUR " + response);
+
+        System.out.println("waw");
 
     }
 }

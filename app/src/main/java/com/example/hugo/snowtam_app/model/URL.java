@@ -3,36 +3,27 @@ package com.example.hugo.snowtam_app.model;
 import android.content.Context;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-//import java.io.File;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Locale;
-
-import javax.net.ssl.HttpsURLConnection;
-
-public class Notam{
+import com.android.volley.toolbox.StringRequest;
 
 
 
+public class URL {
+
+
+
+    static String requestStringToParse = new String();
     static String basicURL ="https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=52604a70-ec93-11e8-acf9-1d6bfa3c323d&format=json&type=&Qcode=&locations=";
     static String endURL ="&qstring=&states=&ICAOonly=";
+
+    public static String getRequestStringToParse() {
+        return requestStringToParse;
+    }
+
+    public static void setRequestStringToParse(String requestStringToParse) {
+        URL.requestStringToParse = requestStringToParse;
+    }
 
     public static String createRequestURL(String listOfIACO){
         String[] IACOtable = listOfIACO.trim().split("\\s+");
@@ -56,25 +47,23 @@ public class Notam{
         return fullURL;
     };
 
-    public static String sendRequest(String myRequestURL){
-        String requestResponse;
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest (Request.Method.GET, myRequestURL, null, new Response.Listener<JSONObject>() {
+    public static StringRequest makeRequest(String myRequestURL) {
+        StringRequest myRequest = new StringRequest (Request.Method.GET, myRequestURL, new Response.Listener<String>() {
 
             @Override
-            public void onResponse(JSONObject response) {
-                requestResponse = response.toString();
-                System.out.println(requestResponse);
+            public void onResponse(String response) {
+                setRequestStringToParse(response);
             }
             }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO: Handle error
-
+                        //
+                        System.err.println("Erreur response : " + error);
+                        error.printStackTrace();
                     }
                 });
-        return requestResponse;
-
-    };
+        return myRequest;
+    }
 
 }
