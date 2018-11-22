@@ -18,28 +18,27 @@ import com.example.hugo.snowtam_app.controller.main.ResultActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-    void ChangeEditTextVisibility(ConstraintLayout icaoLayout, EditText AirportOne, EditText AirportTwo, EditText AirportThree, EditText AirportFour,
+    /*Fonction pour modifier l affichage en fonction du nombre d aeroports entres par l utilisateur*/
+    void ChangeEditTextVisibility(EditText AirportOne, EditText AirportTwo, EditText AirportThree, EditText AirportFour,
                                   TextView textAirportTwo, TextView textAirportThree, TextView textAirportFour)
     {
         if( AirportOne.getText().length()== 0 &&AirportTwo.getText().length()==0 && AirportThree.getText().length()==0 && AirportFour.getText().length()==0){
-            AirportTwo.setVisibility(icaoLayout.GONE);
-            textAirportTwo.setVisibility(icaoLayout.GONE);
-            AirportThree.setVisibility(icaoLayout.GONE);
-            textAirportThree.setVisibility(icaoLayout.GONE);
-            AirportFour.setVisibility(icaoLayout.GONE);
-            textAirportFour.setVisibility(icaoLayout.GONE);
+            AirportTwo.setVisibility(ConstraintLayout.GONE);
+            textAirportTwo.setVisibility(ConstraintLayout.GONE);
+            AirportThree.setVisibility(ConstraintLayout.GONE);
+            textAirportThree.setVisibility(ConstraintLayout.GONE);
+            AirportFour.setVisibility(ConstraintLayout.GONE);
+            textAirportFour.setVisibility(ConstraintLayout.GONE);
         }
         else if(AirportOne.getText().length() > 0 && AirportTwo.getText().length()==0 && AirportThree.getText().length()==0 && AirportFour.getText().length()==0 ) {
-            AirportThree.setVisibility(icaoLayout.GONE);
-            textAirportThree.setVisibility(icaoLayout.GONE);
-            AirportFour.setVisibility(icaoLayout.GONE);
-            textAirportFour.setVisibility(icaoLayout.GONE);
+            AirportThree.setVisibility(ConstraintLayout.GONE);
+            textAirportThree.setVisibility(ConstraintLayout.GONE);
+            AirportFour.setVisibility(ConstraintLayout.GONE);
+            textAirportFour.setVisibility(ConstraintLayout.GONE);
         }
         else if( AirportOne.getText().length() > 0 && AirportTwo.getText().length()> 0 && AirportThree.getText().length()==0 && AirportFour.getText().length()==0) {
-            AirportFour.setVisibility(icaoLayout.GONE);
-            textAirportFour.setVisibility(icaoLayout.GONE);
+            AirportFour.setVisibility(ConstraintLayout.GONE);
+            textAirportFour.setVisibility(ConstraintLayout.GONE);
         }
     }
 
@@ -55,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     .commitNow();
         }
 
-
+        /*lien avec des differents elements graphiques*/
         Button b = findViewById(R.id.buttonSearch);
         final EditText AirportOne = findViewById(R.id.editAeOne);
         final EditText AirportTwo = findViewById(R.id.editAeTwo);
@@ -68,13 +67,23 @@ public class MainActivity extends AppCompatActivity {
         final TextView textAirportThree =  findViewById(R.id.textAirportThree);
         final TextView textAirportFour =  findViewById(R.id.textAirportFour);
 
-        final ConstraintLayout icaoLayout =  findViewById(R.id.ConstraintLayout);
-
         /*mise a jour des texts*/
-        textTitle.setText("SNOWTAM");
+        textTitle.setText(R.string.app_title);
+
+        b.setText(R.string.search);
+
+        textAirportOne.setText(R.string.airportone);
+        textAirportTwo.setText(R.string.airporttwo);
+        textAirportThree.setText(R.string.airportthree);
+        textAirportFour.setText(R.string.airportfour);
+
+        AirportOne.setHint(R.string.ICAO);
+        AirportTwo.setHint(R.string.ICAO);
+        AirportThree.setHint(R.string.ICAO);
+        AirportFour.setHint(R.string.ICAO);
 
 
-
+        /*code pour entrer les oaci des aeroports*/
         AirportOne.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -84,14 +93,14 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() > 0)
                 {
-                    AirportTwo.setVisibility(icaoLayout.VISIBLE);
-                    textAirportTwo.setVisibility(icaoLayout.VISIBLE);
+                    AirportTwo.setVisibility(ConstraintLayout.VISIBLE);
+                    textAirportTwo.setVisibility(ConstraintLayout.VISIBLE);
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                ChangeEditTextVisibility(icaoLayout,AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
+                ChangeEditTextVisibility(AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
             }
         });
         AirportTwo.addTextChangedListener(new TextWatcher() {
@@ -104,15 +113,15 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() > 0 )
                 {
-                    AirportThree.setVisibility(icaoLayout.VISIBLE);
-                    textAirportThree.setVisibility(icaoLayout.VISIBLE);
+                    AirportThree.setVisibility(ConstraintLayout.VISIBLE);
+                    textAirportThree.setVisibility(ConstraintLayout.VISIBLE);
                 }
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                ChangeEditTextVisibility(icaoLayout,AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
+                ChangeEditTextVisibility(AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
             }
         });
         AirportThree.addTextChangedListener(new TextWatcher() {
@@ -124,14 +133,14 @@ public class MainActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.length() > 0)
                 {
-                    AirportFour.setVisibility(icaoLayout.VISIBLE);
-                    textAirportFour.setVisibility(icaoLayout.VISIBLE);
+                    AirportFour.setVisibility(ConstraintLayout.VISIBLE);
+                    textAirportFour.setVisibility(ConstraintLayout.VISIBLE);
                 }
 
             }
             @Override
             public void afterTextChanged(Editable s) {
-                ChangeEditTextVisibility(icaoLayout,AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
+                ChangeEditTextVisibility(AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
             }
         });
         AirportFour.addTextChangedListener(new TextWatcher() {
@@ -145,11 +154,12 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                ChangeEditTextVisibility(icaoLayout,AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
+                ChangeEditTextVisibility(AirportOne,AirportTwo,AirportThree,AirportFour,textAirportTwo,textAirportThree,textAirportFour);
             }
         });
 
 
+        /*bouton pour passer a la page des resultats*/
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent ICAOtoSend = new Intent(getApplicationContext(), ResultActivity.class);

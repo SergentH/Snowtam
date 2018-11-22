@@ -14,10 +14,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Home"
         app:layout_constraintEnd_toStartOf="@+id/textTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Home" />
 
     <Button
         android:id="@+id/btnAirportOne"
@@ -28,7 +28,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAirportTwo"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="1" />
 
     <Button
         android:id="@+id/btnAirportTwo"
@@ -39,7 +40,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAirportThree"
-        app:layout_constraintStart_toEndOf="@+id/btnAirportOne" />
+        app:layout_constraintStart_toEndOf="@+id/btnAirportOne"
+        tools:text="2" />
 
     <Button
         android:id="@+id/btnAirportThree"
@@ -50,7 +52,8 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnAirportFour"
-        app:layout_constraintStart_toEndOf="@+id/btnAirportTwo" />
+        app:layout_constraintStart_toEndOf="@+id/btnAirportTwo"
+        tools:text="3" />
 
     <Button
         android:id="@+id/btnAirportFour"
@@ -63,20 +66,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnAirportThree"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="4" />
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="103dp"
+        android:layout_width="123dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="snowtam"
+        android:textAlignment="center"
         android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/buttonHelp"
         app:layout_constraintStart_toEndOf="@+id/buttonHome"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="snowtam" />
 
     <Button
         android:id="@+id/buttonHelp"
@@ -85,9 +90,83 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="help"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textTitle"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="help" />
+
+    <TextView
+        android:id="@+id/textICAO"
+        android:layout_width="47dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        tools:text="ICAO" />
+
+    <TextView
+        android:id="@+id/textLat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textLatValue"
+        app:layout_constraintStart_toEndOf="@+id/textICAO"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        tools:text="Lat" />
+
+    <TextView
+        android:id="@+id/textLong"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textLongValue"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLat"
+        tools:text="Long" />
+
+    <TextView
+        android:id="@+id/textLatValue"
+        android:layout_width="205dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textLat"
+        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        tools:text="value" />
+
+    <TextView
+        android:id="@+id/textLongValue"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textLong"
+        app:layout_constraintTop_toBottomOf="@+id/textLatValue"
+        tools:text="value" />
+
+    <Button
+        android:id="@+id/buttonOnMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textICAO"
+        tools:text="See on map" />
 
 </android.support.constraint.ConstraintLayout>
