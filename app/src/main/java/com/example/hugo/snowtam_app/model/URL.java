@@ -15,40 +15,50 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 public class URL {
 
+    String requestStringToParse = new String();
+    boolean goodToGo = false;
+    String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=52604a70-ec93-11e8-acf9-1d6bfa3c323d&format=json&type=&Qcode=&locations=";
+    String endURL = "&qstring=&states=&ICAOonly=";
 
-    static String requestStringToParse = new String();
-    static String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=52604a70-ec93-11e8-acf9-1d6bfa3c323d&format=json&type=&Qcode=&locations=";
-    static String endURL = "&qstring=&states=&ICAOonly=";
+    public void setGoodToGo(boolean goodToGo) {
+        this.goodToGo = goodToGo;
+    }
 
-    public static String getRequestStringToParse() {
+    public boolean isGoodToGo() {
+        return goodToGo;
+    }
+
+
+    public String getRequestStringToParse() {
         return requestStringToParse;
     }
 
-    public static void setRequestStringToParse(String requestStringToParse) {
-        URL.requestStringToParse = requestStringToParse;
+    public void setRequestStringToParse(String requestStringToParse) {
+        this.requestStringToParse = requestStringToParse;
     }
 
-    public static String createRequestURL(String listOfIACO) {
-        String[] IACOtable = listOfIACO.trim().split("\\s+");
-        String fullURL = new String();
+    public String createRequestURL(ArrayList<fieldData> allFieldData) {
 
+        String fullURL = new String();
         //add check IACO size ????
 
-        switch (IACOtable.length) {
+        switch (allFieldData.size()) {
             case 1:
-                fullURL = basicURL + IACOtable[0] + endURL;
+                fullURL = basicURL + allFieldData.get(0).getIcao() + endURL;
                 break;
             case 2:
-                fullURL = basicURL + IACOtable[0] + "," + IACOtable[1] + endURL;
+                fullURL = basicURL + allFieldData.get(0).getIcao() + "," + allFieldData.get(1).getIcao() + endURL;
                 break;
             case 3:
-                fullURL = basicURL + IACOtable[0] + "," + IACOtable[1] + "," + IACOtable[2] + endURL;
+                fullURL = basicURL + allFieldData.get(0).getIcao() + "," + allFieldData.get(1).getIcao() + "," + allFieldData.get(2).getIcao() + endURL;
                 break;
             case 4:
-                fullURL = basicURL + IACOtable[0] + "," + IACOtable[1] + "," + IACOtable[2] + "," + IACOtable[3] + endURL;
+                fullURL = basicURL + allFieldData.get(0).getIcao() + "," + allFieldData.get(1).getIcao() + "," + allFieldData.get(2).getIcao() + "," + allFieldData.get(3).getIcao() + endURL;
                 break;
 
             default:
@@ -68,26 +78,33 @@ public class URL {
         return myErrorListener;
     }*/
 
-    public static JsonArrayRequest makeRequest(String myRequestURL, JSONArray myObject) {
+    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<fieldData> allFieldData) {
         JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                JSONObject student = null;
-                for(int i=0;i<response.length();i++){
-                    // Get current json object
+                JSONObject currentNOTAM = null;
+                for(int i = 0; i< allFieldData.size();i++){
+                    for(int j=0;j<response.length();j++){
+                        // Get current json object
 
-                    try {
-                        student = response.getJSONObject(i);
-                        // Get the current student (json object) data
-                        String status = student.getString("status");
-                        String Qcode = student.getString("Qcode");
-                        String Area = student.getString("Area");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                        try {
+                            currentNOTAM = response.getJSONObject(j);
+                            if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(allFieldData.get(i).getIcao())){
+                                allFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
+                                allFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
+                                allFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
+                                allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
+                                break;
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
                     }
 
                 }
-               System.out.println("réponse : " + student.toString());
+
+                setGoodToGo(true);
                 //setRequestStringToParse(response.toString());
             }
         }, new ErrorListener() {

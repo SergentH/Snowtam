@@ -12,14 +12,15 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
+
 public class RequestService {
-    public static void sendRequest(String stringURL, Context myContext){
+    public static void sendRequest(String stringURL, Context myContext, ArrayList<fieldData> allFieldData){
         RequestQueue myQueue = Volley.newRequestQueue(myContext);
 
         URL myURL = new URL();
 
-        JSONArray myArray = new JSONArray();
-        JsonArrayRequest myRequest = myURL.makeRequest(stringURL, myArray);
+        JsonArrayRequest myRequest = myURL.makeRequest(stringURL, allFieldData);
         myQueue.add(myRequest);
         //return myURL.getRequestStringToParse();
 
