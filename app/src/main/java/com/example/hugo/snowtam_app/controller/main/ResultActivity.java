@@ -16,39 +16,28 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 public class ResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
     /*Affichage ou non des boutons en fonction de la taille du text qu'ils contiennent*/
-    void ButtonOnScreen(String Airport, Button AirportButton)
-    {
-        if( Airport.length() > 0)
-        {
+    void ButtonOnScreen(String Airport, Button AirportButton) {
+        if (Airport.length() > 0) {
             AirportButton.setText(Airport);
-        }
-        else
-        {
+        } else {
             AirportButton.setVisibility(ConstraintLayout.GONE);
         }
     }
 
-    void SelectFirstICAO(TextView textICAO, String AirportOne, String AirportTwo ,String AirportThree ,String AirportFour )
-    {
-        if(AirportOne.length() > 0 )
-        {
+    void SelectFirstICAO(TextView textICAO, String AirportOne, String AirportTwo, String AirportThree, String AirportFour) {
+        if (AirportOne.length() > 0) {
             textICAO.setText(AirportOne);
-        }
-        else if(AirportTwo.length() > 0 )
-        {
+        } else if (AirportTwo.length() > 0) {
             textICAO.setText(AirportTwo);
-        }
-        else if(AirportThree.length() > 0 )
-        {
+        } else if (AirportThree.length() > 0) {
             textICAO.setText(AirportThree);
-        }
-        else if(AirportFour.length() > 0 )
-        {
+        } else if (AirportFour.length() > 0) {
             textICAO.setText(AirportFour);
         }
     }
@@ -67,27 +56,26 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         View resultLayout = findViewById(R.id.resultLayout);
 
         /*lien avec des differents elements graphiques*/
-        final TextView textTitle =  findViewById(R.id.textTitle);
-        final TextView textLat =  findViewById(R.id.textLat);
-        final TextView textLong =  findViewById(R.id.textLong);
-        final TextView textrawSNOWTAM =  findViewById(R.id.textrawSNOWTAM);
-        final TextView textAirportName  =  findViewById(R.id.textAirportName);
-        final TextView textStateCode  =  findViewById(R.id.textStateCode);
-        final TextView textStateName  =  findViewById(R.id.textStateName);
-        final TextView textsnowtamID  =  findViewById(R.id.textsnowtamID);
-        final TextView textairportTag  =  findViewById(R.id.textairportTag);
+        final TextView textTitle = findViewById(R.id.textTitle);
+        final TextView textLat = findViewById(R.id.textLat);
+        final TextView textLong = findViewById(R.id.textLong);
+        final TextView textrawSNOWTAM = findViewById(R.id.textrawSNOWTAM);
+        final TextView textAirportName = findViewById(R.id.textAirportName);
+        final TextView textStateCode = findViewById(R.id.textStateCode);
+        final TextView textStateName = findViewById(R.id.textStateName);
+        final TextView textsnowtamID = findViewById(R.id.textsnowtamID);
+        final TextView textairportTag = findViewById(R.id.textairportTag);
 
         /*Donnees relatives aux ICAO*/
-        final TextView textICAO =  findViewById(R.id.textICAO);
-        final TextView textLatValue=  findViewById(R.id.textLatValue);
-        final TextView textLongValue=  findViewById(R.id.textLongValue);
-        final TextView textrawSNOWTAMValue =  findViewById(R.id.textrawSNOWTAMValue);
-        final TextView textAirportNameValue  =  findViewById(R.id.textAirportNameValue);
-        final TextView textStateCodeValue  =  findViewById(R.id.textStateCodeValue);
-        final TextView textStateNameValue =  findViewById(R.id.textStateNameValue);
-        final TextView textsnowtamIDValue  =  findViewById(R.id.textsnowtamIDValue);
-        final TextView textairportTagValue  =  findViewById(R.id.textairportTagValue);
-
+        final TextView textICAO = findViewById(R.id.textICAO);
+        final TextView textLatValue = findViewById(R.id.textLatValue);
+        final TextView textLongValue = findViewById(R.id.textLongValue);
+        final TextView textrawSNOWTAMValue = findViewById(R.id.textrawSNOWTAMValue);
+        final TextView textAirportNameValue = findViewById(R.id.textAirportNameValue);
+        final TextView textStateCodeValue = findViewById(R.id.textStateCodeValue);
+        final TextView textStateNameValue = findViewById(R.id.textStateNameValue);
+        final TextView textsnowtamIDValue = findViewById(R.id.textsnowtamIDValue);
+        final TextView textairportTagValue = findViewById(R.id.textairportTagValue);
 
         Button btnHome = findViewById(R.id.buttonHome);
         Button btnHelp = findViewById(R.id.buttonHelp);
@@ -98,12 +86,14 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         Button btnAirportThree = findViewById(R.id.btnAirportThree);
         Button btnAirportFour = findViewById(R.id.btnAirportFour);
 
+
         /*mise a jour des texts*/
         btnHome.setText(R.string.Home);
         btnHelp.setText(R.string.Help);
         btnOnMap.setText(R.string.SeeOnMap);
 
         textTitle.setText(R.string.app_title);
+
         textLat.setText(R.string.latitude);
         textLong.setText(R.string.longitude);
         textrawSNOWTAM.setText(R.string.rawSNOWTAM);
@@ -112,6 +102,10 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         textStateName.setText(R.string.StateName);
         textsnowtamID.setText(R.string.snowtamID);
         textairportTag.setText(R.string.AirportTag);
+        textICAO.setText(R.string.ICAO);
+
+        textLat.setText(R.string.latitude);
+        textLong.setText(R.string.longitude);
 
         /*recuperation des donnees depuis la page precedante*/
         Intent intent = getIntent();
@@ -121,12 +115,12 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         final String AirportFour = intent.getStringExtra("AirportFour");
 
         /*selection du premier ICAO*/
-        SelectFirstICAO(textICAO,AirportOne,AirportTwo ,AirportThree , AirportFour );
+        SelectFirstICAO(textICAO, AirportOne, AirportTwo, AirportThree, AirportFour);
         /*affichage ou non des boutons s il y a une donnee ou non*/
-        ButtonOnScreen(AirportOne,btnAirportOne);
-        ButtonOnScreen(AirportTwo,btnAirportTwo);
-        ButtonOnScreen(AirportThree,btnAirportThree);
-        ButtonOnScreen(AirportFour,btnAirportFour);
+        ButtonOnScreen(AirportOne, btnAirportOne);
+        ButtonOnScreen(AirportTwo, btnAirportTwo);
+        ButtonOnScreen(AirportThree, btnAirportThree);
+        ButtonOnScreen(AirportFour, btnAirportFour);
 
 
 
@@ -162,6 +156,37 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         });
 
+
+        /*affichage ou non des boutons s il y a une donnee ou non*/
+        if (AirportOne.length() > 0) {
+            btnAirportOne.setText(AirportOne);
+        } else {
+            btnAirportOne.setVisibility(ConstraintLayout.GONE);
+        }
+        if (AirportTwo.length() > 0) {
+            btnAirportTwo.setText(AirportTwo);
+        } else {
+            btnAirportTwo.setVisibility(ConstraintLayout.GONE);
+        }
+        if (AirportThree.length() > 0) {
+            btnAirportThree.setText(AirportThree);
+        } else {
+            btnAirportThree.setVisibility(ConstraintLayout.GONE);
+        }
+        if (AirportFour.length() > 0) {
+            btnAirportFour.setText(AirportFour);
+        } else {
+            btnAirportFour.setVisibility(ConstraintLayout.GONE);
+        }
+
+        /*Utilisation du bouton help*/
+        btnHelp.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
         /*Utilisation du bouton home*/
         btnHome.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -173,8 +198,8 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnOnMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                if(mapFragment.getView().getVisibility() == ConstraintLayout.GONE)
-                {
+
+                if (mapFragment.getView().getVisibility() == ConstraintLayout.GONE) {
                     mapFragment.getView().setVisibility(ConstraintLayout.VISIBLE);
                     btnOnMap.setText(R.string.BackToData);
 
@@ -191,9 +216,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                     textStateNameValue.setVisibility(ConstraintLayout.GONE);
                     textsnowtamIDValue.setVisibility(ConstraintLayout.GONE);
                     textairportTagValue.setVisibility(ConstraintLayout.GONE);
-                }
-                else
-                {
+                } else {
                     mapFragment.getView().setVisibility(ConstraintLayout.GONE);
                     btnOnMap.setText(R.string.SeeOnMap);
 
@@ -223,5 +246,9 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
     }
 }
+
+
+

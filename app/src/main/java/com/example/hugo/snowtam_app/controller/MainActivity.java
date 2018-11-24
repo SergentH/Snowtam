@@ -80,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
 
         /*mise a jour des texts*/
         textTitle.setText(R.string.app_title);
-
         b.setText(R.string.search);
 
         textAirportOne.setText(R.string.airportone);
