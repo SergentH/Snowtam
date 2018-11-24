@@ -7,6 +7,126 @@
     android:layout_height="match_parent"
     tools:context=".controller.main.ResultActivity">
 
+    <TextView
+        android:id="@+id/textAirportName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textrawSNOWTAM"
+        tools:text="Airport name" />
+
+    <TextView
+        android:id="@+id/textAirportNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textAirportName"
+        app:layout_constraintTop_toBottomOf="@+id/textrawSNOWTAMValue"
+        tools:text="rawSNOWTAM" />
+
+    <TextView
+        android:id="@+id/textStateCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textAirportName"
+        tools:text="State code" />
+
+    <TextView
+        android:id="@+id/textStateCodeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textStateCode"
+        app:layout_constraintTop_toBottomOf="@+id/textAirportNameValue"
+        tools:text="State code" />
+
+    <TextView
+        android:id="@+id/textStateName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStateCode"
+        tools:text="State name" />
+
+    <TextView
+        android:id="@+id/textStateNameValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textStateName"
+        app:layout_constraintTop_toBottomOf="@+id/textStateCodeValue"
+        tools:text="State name" />
+
+    <TextView
+        android:id="@+id/textsnowtamID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textStateName"
+        tools:text="snowtam ID" />
+
+    <TextView
+        android:id="@+id/textsnowtamIDValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textsnowtamID"
+        app:layout_constraintTop_toBottomOf="@+id/textStateNameValue"
+        tools:text="snowtam ID" />
+
+    <TextView
+        android:id="@+id/textairportTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textsnowtamID"
+        tools:text="Airport Tag" />
+
+    <TextView
+        android:id="@+id/textairportTagValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textairportTag"
+        app:layout_constraintTop_toBottomOf="@+id/textsnowtamIDValue"
+        tools:text="Airport Tag" />
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
@@ -181,5 +301,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textICAO"
         tools:text="See on map" />
+
+    <TextView
+        android:id="@+id/textrawSNOWTAM"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOnMap"
+        tools:text="rawSNOWTAM" />
+
+    <TextView
+        android:id="@+id/textrawSNOWTAMValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textrawSNOWTAM"
+        app:layout_constraintTop_toBottomOf="@+id/buttonOnMap"
+        tools:text="rawSNOWTAM" />
 
 </android.support.constraint.ConstraintLayout>

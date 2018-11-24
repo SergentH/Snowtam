@@ -20,23 +20,73 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
     private GoogleMap mMap;
 
+    /*Affichage ou non des boutons en fonction de la taille du text qu'ils contiennent*/
+    void ButtonOnScreen(String Airport, Button AirportButton)
+    {
+        if( Airport.length() > 0)
+        {
+            AirportButton.setText(Airport);
+        }
+        else
+        {
+            AirportButton.setVisibility(ConstraintLayout.GONE);
+        }
+    }
+
+    void SelectFirstICAO(TextView textICAO, String AirportOne, String AirportTwo ,String AirportThree ,String AirportFour )
+    {
+        if(AirportOne.length() > 0 )
+        {
+            textICAO.setText(AirportOne);
+        }
+        else if(AirportTwo.length() > 0 )
+        {
+            textICAO.setText(AirportTwo);
+        }
+        else if(AirportThree.length() > 0 )
+        {
+            textICAO.setText(AirportThree);
+        }
+        else if(AirportFour.length() > 0 )
+        {
+            textICAO.setText(AirportFour);
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) this.getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+
+        View resultLayout = findViewById(R.id.resultLayout);
 
         /*lien avec des differents elements graphiques*/
         final TextView textTitle =  findViewById(R.id.textTitle);
-        final TextView textICAO =  findViewById(R.id.textICAO);
         final TextView textLat =  findViewById(R.id.textLat);
         final TextView textLong =  findViewById(R.id.textLong);
+        final TextView textrawSNOWTAM =  findViewById(R.id.textrawSNOWTAM);
+        final TextView textAirportName  =  findViewById(R.id.textAirportName);
+        final TextView textStateCode  =  findViewById(R.id.textStateCode);
+        final TextView textStateName  =  findViewById(R.id.textStateName);
+        final TextView textsnowtamID  =  findViewById(R.id.textsnowtamID);
+        final TextView textairportTag  =  findViewById(R.id.textairportTag);
+
+        /*Donnees relatives aux ICAO*/
+        final TextView textICAO =  findViewById(R.id.textICAO);
         final TextView textLatValue=  findViewById(R.id.textLatValue);
         final TextView textLongValue=  findViewById(R.id.textLongValue);
+        final TextView textrawSNOWTAMValue =  findViewById(R.id.textrawSNOWTAMValue);
+        final TextView textAirportNameValue  =  findViewById(R.id.textAirportNameValue);
+        final TextView textStateCodeValue  =  findViewById(R.id.textStateCodeValue);
+        final TextView textStateNameValue =  findViewById(R.id.textStateNameValue);
+        final TextView textsnowtamIDValue  =  findViewById(R.id.textsnowtamIDValue);
+        final TextView textairportTagValue  =  findViewById(R.id.textairportTagValue);
 
 
         Button btnHome = findViewById(R.id.buttonHome);
@@ -48,17 +98,20 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         Button btnAirportThree = findViewById(R.id.btnAirportThree);
         Button btnAirportFour = findViewById(R.id.btnAirportFour);
 
-
         /*mise a jour des texts*/
         btnHome.setText(R.string.Home);
         btnHelp.setText(R.string.Help);
         btnOnMap.setText(R.string.SeeOnMap);
 
         textTitle.setText(R.string.app_title);
-        textICAO.setText(R.string.ICAO);
-
         textLat.setText(R.string.latitude);
         textLong.setText(R.string.longitude);
+        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
+        textAirportName.setText(R.string.AirportName);
+        textStateCode.setText(R.string.StateCode);
+        textStateName.setText(R.string.StateName);
+        textsnowtamID.setText(R.string.snowtamID);
+        textairportTag.setText(R.string.AirportTag);
 
         /*recuperation des donnees depuis la page precedante*/
         Intent intent = getIntent();
@@ -67,39 +120,40 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         final String AirportThree = intent.getStringExtra("AirportThree");
         final String AirportFour = intent.getStringExtra("AirportFour");
 
+        /*selection du premier ICAO*/
+        SelectFirstICAO(textICAO,AirportOne,AirportTwo ,AirportThree , AirportFour );
         /*affichage ou non des boutons s il y a une donnee ou non*/
-        if( AirportOne.length() > 0)
-        {
-            btnAirportOne.setText(AirportOne);
-        }
-        else
-        {
-            btnAirportOne.setVisibility(ConstraintLayout.GONE);
-        }
-        if( AirportTwo.length() > 0)
-        {
-            btnAirportTwo.setText(AirportTwo);
-        }
-        else
-        {
-            btnAirportTwo.setVisibility(ConstraintLayout.GONE);
-        }
-        if( AirportThree.length() > 0)
-        {
-            btnAirportThree.setText(AirportThree);
-        }
-        else
-        {
-            btnAirportThree.setVisibility(ConstraintLayout.GONE);
-        }
-        if( AirportFour.length() > 0)
-        {
-            btnAirportFour.setText(AirportFour);
-        }
-        else
-        {
-            btnAirportFour.setVisibility(ConstraintLayout.GONE);
-        }
+        ButtonOnScreen(AirportOne,btnAirportOne);
+        ButtonOnScreen(AirportTwo,btnAirportTwo);
+        ButtonOnScreen(AirportThree,btnAirportThree);
+        ButtonOnScreen(AirportFour,btnAirportFour);
+
+
+
+        /*Gestion des boutons ICAO*/  //<--------------------------------------------------------------------------------------------------
+        btnAirportOne.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textICAO.setText(AirportOne);
+            }
+        });
+
+        btnAirportTwo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textICAO.setText(AirportTwo);
+            }
+        });
+
+        btnAirportThree.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textICAO.setText(AirportThree);
+            }
+        });
+
+        btnAirportFour.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                textICAO.setText(AirportFour);
+            }
+        });
 
         /*Utilisation du bouton help*/
         btnHelp.setOnClickListener(new View.OnClickListener() {
@@ -118,21 +172,47 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         /*Utilisation du bouton On Map*/
         btnOnMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-            /*
-                if(airportMap.get)
+
+                if(mapFragment.getView().getVisibility() == ConstraintLayout.GONE)
                 {
-                    airportMap.setVisibility(ConstraintLayout.INVISIBLE);
-                    btnOnMap.setText(R.string.SeeOnMap);
+                    mapFragment.getView().setVisibility(ConstraintLayout.VISIBLE);
+                    btnOnMap.setText(R.string.BackToData);
+
+                    textrawSNOWTAM.setVisibility(ConstraintLayout.GONE);
+                    textAirportName.setVisibility(ConstraintLayout.GONE);
+                    textStateCode.setVisibility(ConstraintLayout.GONE);
+                    textStateName.setVisibility(ConstraintLayout.GONE);
+                    textsnowtamID.setVisibility(ConstraintLayout.GONE);
+                    textairportTag.setVisibility(ConstraintLayout.GONE);
+
+                    textrawSNOWTAMValue.setVisibility(ConstraintLayout.GONE);
+                    textAirportNameValue.setVisibility(ConstraintLayout.GONE);
+                    textStateCodeValue.setVisibility(ConstraintLayout.GONE);
+                    textStateNameValue.setVisibility(ConstraintLayout.GONE);
+                    textsnowtamIDValue.setVisibility(ConstraintLayout.GONE);
+                    textairportTagValue.setVisibility(ConstraintLayout.GONE);
                 }
                 else
                 {
-                    airportMap.setVisibility(ConstraintLayout.VISIBLE);
-                    btnOnMap.setText(R.string.BackToData);
+                    mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+                    btnOnMap.setText(R.string.SeeOnMap);
+
+                    textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
+                    textAirportName.setVisibility(ConstraintLayout.VISIBLE);
+                    textStateCode.setVisibility(ConstraintLayout.VISIBLE);
+                    textStateName.setVisibility(ConstraintLayout.VISIBLE);
+                    textsnowtamID.setVisibility(ConstraintLayout.VISIBLE);
+                    textairportTag.setVisibility(ConstraintLayout.VISIBLE);
+
+                    textrawSNOWTAMValue.setVisibility(ConstraintLayout.VISIBLE);
+                    textAirportNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                    textStateCodeValue.setVisibility(ConstraintLayout.VISIBLE);
+                    textStateNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                    textsnowtamIDValue.setVisibility(ConstraintLayout.VISIBLE);
+                    textairportTagValue.setVisibility(ConstraintLayout.VISIBLE);
                 }
-            */
             }
         });
-
     }
 
     @Override

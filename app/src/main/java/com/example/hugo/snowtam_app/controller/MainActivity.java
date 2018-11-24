@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
@@ -42,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*pour pouvoir choisir le nombre max de charactere dans un EditText*/
+    public void setEditTextMaxLength(EditText editText, int length) {
+        InputFilter[] FilterArray = new InputFilter[1];
+        FilterArray[0] = new InputFilter.LengthFilter(length);
+        editText.setFilters(FilterArray);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +64,13 @@ public class MainActivity extends AppCompatActivity {
         /*lien avec des differents elements graphiques*/
         Button b = findViewById(R.id.buttonSearch);
         final EditText AirportOne = findViewById(R.id.editAeOne);
+        setEditTextMaxLength(AirportOne, 4);
         final EditText AirportTwo = findViewById(R.id.editAeTwo);
+        setEditTextMaxLength(AirportTwo, 4);
         final EditText AirportThree = findViewById(R.id.editAeThree);
+        setEditTextMaxLength(AirportThree, 4);
         final EditText AirportFour = findViewById(R.id.editAeFour);
+        setEditTextMaxLength(AirportFour, 4);
 
         final TextView textTitle =  findViewById(R.id.textTitle);
         final TextView textAirportOne =  findViewById(R.id.textAirportOne);
@@ -81,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
         AirportTwo.setHint(R.string.ICAO);
         AirportThree.setHint(R.string.ICAO);
         AirportFour.setHint(R.string.ICAO);
-
 
         /*code pour entrer les oaci des aeroports*/
         AirportOne.addTextChangedListener(new TextWatcher() {
@@ -169,10 +179,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                        ICAOtoSend.putExtra("AirportOne",AirportOne.getText().toString());
-                        ICAOtoSend.putExtra("AirportTwo",AirportTwo.getText().toString());
-                        ICAOtoSend.putExtra("AirportThree",AirportThree.getText().toString());
-                        ICAOtoSend.putExtra("AirportFour",AirportFour.getText().toString());
+                        ICAOtoSend.putExtra("AirportOne",AirportOne.getText().toString().toUpperCase());
+                        ICAOtoSend.putExtra("AirportTwo",AirportTwo.getText().toString().toUpperCase());
+                        ICAOtoSend.putExtra("AirportThree",AirportThree.getText().toString().toUpperCase());
+                        ICAOtoSend.putExtra("AirportFour",AirportFour.getText().toString().toUpperCase());
 
                     startActivity(ICAOtoSend);
                 }
@@ -180,6 +190,4 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
-
 }

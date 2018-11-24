@@ -12,6 +12,12 @@
     <string name="ICAO">ICAO</string>
     <string name="latitude">Lat</string>
     <string name="longitude">Long</string>
+    <string name="rawSNOWTAM">raw Snowtam</string>
+    <string name="AirportName">Airport name</string>
+    <string name="StateCode">State code</string>
+    <string name="snowtamID">snowtam ID</string>
+    <string name="StateName">State name</string>
+    <string name="AirportTag">Airport tag</string>
 
     <string name="airportone">Airport 1</string>
     <string name="airporttwo">Airport 2</string>
