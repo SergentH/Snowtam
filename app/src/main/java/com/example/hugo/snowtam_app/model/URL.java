@@ -1,15 +1,10 @@
 package com.example.hugo.snowtam_app.model;
 
-import android.content.Context;
-
-import com.android.volley.Request;
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.StringRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,11 +14,11 @@ import java.util.ArrayList;
 
 
 public class URL {
-
+    final String API_KEY = "52604a70-ec93-11e8-acf9-1d6bfa3c323d";
+    String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=" + API_KEY +"&format=json&type=&Qcode=&locations=";
+    String endURL = "&qstring=&states=&ICAOonly=";
     String requestStringToParse = new String();
     boolean goodToGo = false;
-    String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=52604a70-ec93-11e8-acf9-1d6bfa3c323d&format=json&type=&Qcode=&locations=";
-    String endURL = "&qstring=&states=&ICAOonly=";
 
     public void setGoodToGo(boolean goodToGo) {
         this.goodToGo = goodToGo;
@@ -33,7 +28,6 @@ public class URL {
         return goodToGo;
     }
 
-
     public String getRequestStringToParse() {
         return requestStringToParse;
     }
@@ -42,7 +36,7 @@ public class URL {
         this.requestStringToParse = requestStringToParse;
     }
 
-    public String createRequestURL(ArrayList<fieldData> allFieldData) {
+    public String createRequestURL(ArrayList<FieldData> allFieldData) {
 
         String fullURL = new String();
         //add check IACO size ????
@@ -78,15 +72,13 @@ public class URL {
         return myErrorListener;
     }*/
 
-    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<fieldData> allFieldData) {
+    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData) {
         JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 JSONObject currentNOTAM = null;
                 for(int i = 0; i< allFieldData.size();i++){
                     for(int j=0;j<response.length();j++){
-                        // Get current json object
-
                         try {
                             currentNOTAM = response.getJSONObject(j);
                             if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(allFieldData.get(i).getIcao())){
@@ -96,16 +88,13 @@ public class URL {
                                 allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
                                 break;
                             }
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                 }
-
                 setGoodToGo(true);
-                //setRequestStringToParse(response.toString());
             }
         }, new ErrorListener() {
 
@@ -118,7 +107,4 @@ public class URL {
         });
         return myRequest;
     }
-
-
 }
-/* */

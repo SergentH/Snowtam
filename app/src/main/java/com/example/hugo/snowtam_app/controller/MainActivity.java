@@ -4,12 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.hugo.snowtam_app.R;
-import com.example.hugo.snowtam_app.controller.main.MainFragment;
+import com.example.hugo.snowtam_app.model.AirfieldRequestService;
 import com.example.hugo.snowtam_app.model.URL;
-import com.example.hugo.snowtam_app.model.RequestService;
-import com.example.hugo.snowtam_app.model.fieldData;
-
-import org.json.JSONArray;
+import com.example.hugo.snowtam_app.model.SnowtamRequestService;
+import com.example.hugo.snowtam_app.model.FieldData;
 
 import java.util.ArrayList;
 
@@ -22,17 +20,19 @@ public class MainActivity extends AppCompatActivity {
 
         String ICAOList = new String("ENBR ENGM");
 
-        ArrayList<fieldData> allFieldData = new ArrayList<fieldData>();
+        ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
         String[] ICAOtable = ICAOList.trim().split("\\s+");
 
         for(int i = 0; i<ICAOtable.length; i++){
-            fieldData newField = new fieldData(ICAOtable[i]);
+            FieldData newField = new FieldData(ICAOtable[i]);
             allFieldData.add(newField);
         }
 
 
         URL myURL = new URL();
-        RequestService.sendRequest(myURL.createRequestURL(allFieldData),getApplicationContext(), allFieldData);
+        SnowtamRequestService.sendSnowtamRequest(myURL.createRequestURL(allFieldData),getApplicationContext(), allFieldData);
+        AirfieldRequestService.threadSendAirfieldRequest(allFieldData);
+
         /*while(!myURL.isGoodToGo()){
 
         }*/

@@ -1,6 +1,6 @@
 package com.example.hugo.snowtam_app.model;
 
-public class fieldData {
+public class FieldData {
     public String getIcao() {
         return icao;
     }
@@ -13,6 +13,7 @@ public class fieldData {
     private String stateName;
     private String icao;
     private String snowtamID;
+    private String airportTag;
 
     public String getSnowtamID() {
         return snowtamID;
@@ -22,8 +23,6 @@ public class fieldData {
         this.snowtamID = snowtamID;
     }
 
-
-
     public void setRawSnowtam(String rawSnowtam) {
         this.rawSnowtam = rawSnowtam;
     }
@@ -32,7 +31,13 @@ public class fieldData {
         return rawSnowtam;
     }
 
+    public String getAirportName() {
+        return airportName;
+    }
 
+    public void setAirportName(String airportName) {
+        this.airportName = airportName;
+    }
 
     public String getStateCode() {
         return stateCode;
@@ -50,7 +55,34 @@ public class fieldData {
         this.stateName = stateName;
     }
 
-    public fieldData(String ICAO) {
+    public FieldData(String ICAO) {
         this.icao = ICAO;
     }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public String getAirportTag() {
+        return airportTag;
+    }
+
+    public void setAirportTag(String airportTag) {
+        this.airportTag = airportTag;
+    }
+
+
+
 }
