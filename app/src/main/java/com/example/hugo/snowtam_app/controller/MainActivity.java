@@ -173,8 +173,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent ICAOtoSend = new Intent(getApplicationContext(), ResultActivity.class);
                 if (AirportOne.getText().length() == 0 &&  AirportTwo.getText().length() == 0 && AirportThree.getText().length() == 0  && AirportFour.getText().length() == 0 ) {
-                    Toast.makeText(v.getContext(), "enter an ICAO please" ,
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "enter an ICAO please" ,Toast.LENGTH_LONG).show();
                 }
                 else
                 {

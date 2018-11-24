@@ -53,8 +53,6 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
         mapFragment.getView().setVisibility(ConstraintLayout.GONE);
 
-        View resultLayout = findViewById(R.id.resultLayout);
-
         /*lien avec des differents elements graphiques*/
         final TextView textTitle = findViewById(R.id.textTitle);
         final TextView textLat = findViewById(R.id.textLat);
@@ -194,6 +192,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         });
 
+
         /*Utilisation du bouton On Map*/
         btnOnMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -248,6 +247,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
     }
+
 }
 
 
