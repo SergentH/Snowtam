@@ -54,14 +54,6 @@ public class RunwayData {
         this.taxiWaySnowBank = taxiWaySnowBank;
     }
 
-    public String getApron() {
-        return apron;
-    }
-
-    public void setApron(String apron) {
-        this.apron = apron;
-    }
-
     public ArrayList<RunwaySegmentData> getAllRunwaySegmentData() {
         return allRunwaySegmentData;
     }
@@ -154,6 +146,30 @@ public class RunwayData {
         this.taxiWayFriction = taxiWayFriction;
     }
 
+    public String getApronContaminent() {
+        return apronContaminent;
+    }
+
+    public void setApronContaminent(String apronContaminent) {
+        this.apronContaminent = apronContaminent;
+    }
+
+    public String getApronFriction() {
+        return apronFriction;
+    }
+
+    public void setApronFriction(String apronFriction) {
+        this.apronFriction = apronFriction;
+    }
+
+    public String getObservationTime() {
+        return observationTime;
+    }
+
+    public void setObservationTime(String observationTime) {
+        this.observationTime = observationTime;
+    }
+
 
 
 
@@ -161,36 +177,41 @@ public class RunwayData {
         this.allRunwaySegmentData = allRunwaySegmentData;
     }
 
+    private String observationTime = "NO DATA";                             // B)
+
     private String runWayDesignator;                            // C)
 
-    private String clearedRWLenght;                             // D)
+    private String clearedRWLenght = "TOTAL";                             // D)
 
-    private String clearedRWWidth;                              // E)
+    private String clearedRWWidth = "TOTAL";                              // E)
     //TODO gérer le L/R LR
-    private String clearedRWWidthOffset = "No offset";          // E)
+    private String clearedRWWidthOffset = "No offset on runway";          // E)
 
-    private String frictionMeasurementDevice = "Not Specified"; // H) TOUJOURS AFFICHER SI H PRESENT
+    private String frictionMeasurementDevice = "Measurement device not specified"; // H) TOUJOURS AFFICHER SI H PRESENT
 
-    private String criticalSnowbankHeight = "No Snowbank";      // J) SI PAS DE J NE PAS AFFICHER
-    private String criticalSnowbankDistFromEdge = "No Snowbank";// J)
+    private String criticalSnowbankHeight = "No snowbank on the sides of runway";      // J) SI PAS DE J NE PAS AFFICHER
+    private String criticalSnowbankDistFromEdge = "No snowbank on the sides of runway";// J)
     //TODO gérer le L/R LR
-    private String criticalSnowbankSide = "No Snowbank";        // J)
+    private String criticalSnowbankSide = "No snowbank on the sides of runway";        // J)
 
     private Boolean rWLightIsObscured = false;                  // K) SI FALSE NE PAS AFFICHER L'INFO
     //TODO gérer le L/R LR
     private String rWLightSideObscured = "No light obscured";   // K) SI AU DESSOUS FALSE NE PAS AFFICHER INFO
 
-    private String furtherClearanceLenght;                      // L)
-    private String furtherClearanceWidth;                       // L)
+    private String furtherClearanceLenght = "NO DATA";                      // L)
+    private String furtherClearanceWidth = "NO DATA";                       // L)
 
     //TODO gérer bien le time UTC
-    private String furtherClearanceToBeDone;                    // M) SI M NON SPECIFIE NE PAS AFFICHER
+    private String furtherClearanceToBeDone = "No clearance planified";                    // M) SI M NON SPECIFIE NE PAS AFFICHER
 
-    private String TaxiWayQuality;                              // N)
-    private String taxiWayFriction = "Not specified";           // N)
+    private String TaxiWayQuality = "Taxi way contaminent not specified";                              // N)
+    private String taxiWayFriction = "Taxi way friction not specified";           // N)
 
-    private String taxiWaySnowBank;             // P)
-    private String apron;                       // R)
+    private String taxiWaySnowBank = "No snowbank on taxiway";  // P)
+
+    private String apronContaminent = "Apron contaminent not specified";                            // R)
+    private String apronFriction = "Apron friction not specified";                               // R)
+
     private ArrayList<RunwaySegmentData> allRunwaySegmentData = new ArrayList<RunwaySegmentData>();
 
 

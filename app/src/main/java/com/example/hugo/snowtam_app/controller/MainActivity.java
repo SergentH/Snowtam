@@ -32,25 +32,5 @@ public class MainActivity extends AppCompatActivity {
         URL myURL = new URL();
         SnowtamRequestService.sendSnowtamRequest(myURL.createRequestURL(allFieldData),getApplicationContext(), allFieldData);
         AirfieldRequestService.threadSendAirfieldRequest(allFieldData);
-
-        /*while(!myURL.isGoodToGo()){
-
-        }*/
-
-        System.out.println("DEBUG => RETOUR " + myURL.getRequestStringToParse());
-        System.out.println("DEBUG => RETOUR ");
-
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-        System.out.println("waw");
-
-
     }
 }

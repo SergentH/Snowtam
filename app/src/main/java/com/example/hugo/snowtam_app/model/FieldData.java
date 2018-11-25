@@ -1,5 +1,7 @@
 package com.example.hugo.snowtam_app.model;
 
+import java.util.ArrayList;
+
 public class FieldData {
     public String getIcao() {
         return icao;
@@ -15,21 +17,15 @@ public class FieldData {
     private String snowtamID;
     private String airportTag;
 
-    private String observationTime;             // B)
+
     private String nextObservationTime;         // S)
+    //TODO comparer les dates
     private Boolean isExpired;
-    private String remark;                      // T)
+    private String remark = "No remarks";                      // T)
+    private ArrayList<RunwayData> allRunwayData = new ArrayList<RunwayData>();
 
     public void setIcao(String icao) {
         this.icao = icao;
-    }
-
-    public String getObservationTime() {
-        return observationTime;
-    }
-
-    public void setObservationTime(String observationTime) {
-        this.observationTime = observationTime;
     }
 
     public String getNextObservationTime() {
@@ -122,6 +118,14 @@ public class FieldData {
 
     public void setAirportTag(String airportTag) {
         this.airportTag = airportTag;
+    }
+
+    public ArrayList<RunwayData> getAllRunwayData() {
+        return allRunwayData;
+    }
+
+    public void setAllRunwayData(ArrayList<RunwayData> allRunwayData) {
+        this.allRunwayData = allRunwayData;
     }
 
 

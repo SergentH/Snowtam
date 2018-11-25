@@ -86,6 +86,7 @@ public class URL {
                                 allFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
                                 allFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
                                 allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
+                                SnowtamParser.parseSnowtam(allFieldData.get(i));
                                 break;
                             }
 
