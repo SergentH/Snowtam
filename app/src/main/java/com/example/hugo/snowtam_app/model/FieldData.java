@@ -11,9 +11,50 @@ public class FieldData {
     private String airportName;
     private String stateCode;
     private String stateName;
-    private String icao;
+    private String icao;                        // A)
     private String snowtamID;
     private String airportTag;
+
+    private String observationTime;             // B)
+    private String nextObservationTime;         // S)
+    private Boolean isExpired;
+    private String remark;                      // T)
+
+    public void setIcao(String icao) {
+        this.icao = icao;
+    }
+
+    public String getObservationTime() {
+        return observationTime;
+    }
+
+    public void setObservationTime(String observationTime) {
+        this.observationTime = observationTime;
+    }
+
+    public String getNextObservationTime() {
+        return nextObservationTime;
+    }
+
+    public void setNextObservationTime(String nextObservationTime) {
+        this.nextObservationTime = nextObservationTime;
+    }
+
+    public Boolean getExpired() {
+        return isExpired;
+    }
+
+    public void setExpired(Boolean expired) {
+        isExpired = expired;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
     public String getSnowtamID() {
         return snowtamID;
