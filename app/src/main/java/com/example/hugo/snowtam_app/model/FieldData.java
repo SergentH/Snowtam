@@ -1,8 +1,14 @@
 package com.example.hugo.snowtam_app.model;
 
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 
-public class FieldData {
+public class FieldData implements Serializable {
     public String getIcao() {
         return icao;
     }
@@ -18,9 +24,8 @@ public class FieldData {
     private String airportTag;
 
 
-    private String nextObservationTime;         // S)
+    private String nextObservationTime = "Undefined";         // S)
     //TODO comparer les dates
-    private Boolean isExpired;
     private String remark = "No remarks";                      // T)
     private ArrayList<RunwayData> allRunwayData = new ArrayList<RunwayData>();
 
@@ -33,15 +38,34 @@ public class FieldData {
     }
 
     public void setNextObservationTime(String nextObservationTime) {
-        this.nextObservationTime = nextObservationTime;
-    }
 
-    public Boolean getExpired() {
-        return isExpired;
-    }
+        SimpleDateFormat sdfDate = new SimpleDateFormat("MMddhhmmYYYY");
+        sdfDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
 
-    public void setExpired(Boolean expired) {
-        isExpired = expired;
+        //check if next observation is next year
+        Integer monthCurrent = Integer.parseInt(strDate.substring(0, 2));
+        Integer monthNext = Integer.parseInt(nextObservationTime.substring(0, 2));
+        int year;
+        if(monthNext<monthCurrent){
+            year = Calendar.getInstance().get(Calendar.YEAR) + 1;
+        }
+        else{
+            year = Calendar.getInstance().get(Calendar.YEAR);
+        }
+
+        String dateWithYear = nextObservationTime + year;
+        SimpleDateFormat fmt = new SimpleDateFormat("MMddhhmmYYYY");
+        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        try {
+            this.nextObservationTime = fmt.parse(dateWithYear).toString();
+
+        } catch (ParseException e) {
+            this.nextObservationTime = nextObservationTime;
+            e.printStackTrace();
+        }
     }
 
     public String getRemark() {
@@ -95,6 +119,8 @@ public class FieldData {
     public FieldData(String ICAO) {
         this.icao = ICAO;
     }
+    public FieldData() {
+    }   
 
     public String getLatitude() {
         return latitude;

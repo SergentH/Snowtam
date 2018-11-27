@@ -1,6 +1,10 @@
 package com.example.hugo.snowtam_app.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 public class RunwayData {
 
@@ -167,8 +171,19 @@ public class RunwayData {
     }
 
     public void setObservationTime(String observationTime) {
-        this.observationTime = observationTime;
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        String dateWithYear = observationTime + year;
+        SimpleDateFormat fmt = new SimpleDateFormat("MMddhhmmYYYY");
+        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            this.observationTime = fmt.parse(dateWithYear).toString();
+
+        } catch (ParseException e) {
+            this.observationTime = dateWithYear;
+            e.printStackTrace();
+        }
     }
+
     public String getTaxiWayRAW() {
         return TaxiWayRAW;
     }
@@ -232,7 +247,9 @@ public class RunwayData {
     private String apronRAW = "NO DATA";
 
     private String apronContaminent = "Apron contaminent not specified";                            // R)
-    private String apronFriction = "Apron friction not specified";                               // R)
+    private String apronFriction = "Apron friction not specified";                                  // R)
+    //TODO Si j'ai le temps
+    private Boolean isExpired;
 
     private ArrayList<RunwaySegmentData> allRunwaySegmentData = new ArrayList<RunwaySegmentData>();
 
