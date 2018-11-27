@@ -1,5 +1,7 @@
 package com.example.hugo.snowtam_app.model;
 
+import android.content.Intent;
+
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
@@ -18,15 +20,6 @@ public class URL {
     String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=" + API_KEY +"&format=json&type=&Qcode=&locations=";
     String endURL = "&qstring=&states=&ICAOonly=";
     String requestStringToParse = new String();
-    boolean goodToGo = false;
-
-    public void setGoodToGo(boolean goodToGo) {
-        this.goodToGo = goodToGo;
-    }
-
-    public boolean isGoodToGo() {
-        return goodToGo;
-    }
 
     public String getRequestStringToParse() {
         return requestStringToParse;
@@ -72,7 +65,7 @@ public class URL {
         return myErrorListener;
     }*/
 
-    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData) {
+    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData, Intent myIntent) {
         JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -95,7 +88,8 @@ public class URL {
                         }
                     }
                 }
-                setGoodToGo(true);
+                //TODO ICI HUGO POUR L'APPEL D'INTENT
+                System.out.println("Juste un endroit où faire un breakpoint pour Debug");
             }
         }, new ErrorListener() {
 
