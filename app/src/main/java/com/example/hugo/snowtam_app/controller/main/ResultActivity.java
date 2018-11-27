@@ -20,6 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class ResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    int latitude;
+    int longitude;
+    String markerName;
 
     /*Affichage ou non des boutons en fonction de la taille du text qu'ils contiennent*/
     void ButtonOnScreen(String Airport, Button AirportButton) {
@@ -242,9 +245,9 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng position = new LatLng(latitude, longitude);
+        mMap.addMarker(new MarkerOptions().position(position).title(markerName));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
 
     }
 
