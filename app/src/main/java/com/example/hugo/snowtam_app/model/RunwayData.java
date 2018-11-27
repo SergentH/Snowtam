@@ -169,6 +169,22 @@ public class RunwayData {
     public void setObservationTime(String observationTime) {
         this.observationTime = observationTime;
     }
+    public String getTaxiWayRAW() {
+        return TaxiWayRAW;
+    }
+
+    public void setTaxiWayRAW(String taxiWayRAW) {
+        TaxiWayRAW = taxiWayRAW;
+    }
+
+    public String getApronRAW() {
+        return apronRAW;
+    }
+
+    public void setApronRAW(String apronRAW) {
+        this.apronRAW = apronRAW;
+    }
+
 
 
 
@@ -204,10 +220,16 @@ public class RunwayData {
     //TODO gérer bien le time UTC
     private String furtherClearanceToBeDone = "No clearance planified";                    // M) SI M NON SPECIFIE NE PAS AFFICHER
 
+    //TODO schlag temporaire
+    private String TaxiWayRAW = "NO DATA";
+
     private String TaxiWayQuality = "Taxi way contaminent not specified";                              // N)
     private String taxiWayFriction = "Taxi way friction not specified";           // N)
 
     private String taxiWaySnowBank = "No snowbank on taxiway";  // P)
+
+    //TODO schlag temporaire
+    private String apronRAW = "NO DATA";
 
     private String apronContaminent = "Apron contaminent not specified";                            // R)
     private String apronFriction = "Apron friction not specified";                               // R)

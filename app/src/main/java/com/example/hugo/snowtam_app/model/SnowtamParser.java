@@ -108,6 +108,11 @@ public class SnowtamParser {
 
             if (stringLastCharacter(elements[i - 1]).equals("N")) {
                 //TODO cas plusieurs taxiWAY !!!!!! A1/2/POOR, B1/4/GOOD || A1/2, A2/5/POOR || A1 B2 C/2/POOR
+
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setTaxiWayRAW(stringWithoutLastCharacter(elements[i]));
+
+                //TODO Pour plus tard la version plus clean
+                /*
                 if (stringWithoutLastCharacter(elements[i]).equals("NO")) {
                     myFieldData.getAllRunwayData().get(currentRunwayEdited).setTaxiWayQuality("Taxi way not usable");
                 } else {
@@ -122,7 +127,7 @@ public class SnowtamParser {
                     if (subResponse.length < 1) {
                         myFieldData.getAllRunwayData().get(currentRunwayEdited).setTaxiWayFriction(subResponse[1]);
                     }
-                }
+                }*/
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("M")) {
@@ -135,6 +140,9 @@ public class SnowtamParser {
 
             if (stringLastCharacter(elements[i - 1]).equals("R")) {
                 //TODO cas plusieurs apron !!!!!! A1/2/POOR, B1/4/GOOD || A1/2, A2/5/POOR || A1 B2 C/2/POOR, le cas des virgules et tout ATTENTION ")" !!!!!!
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setApronRAW(stringWithoutLastCharacter(elements[i]));
+
+                /*
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("/");
                 if(subResponse.length == 1){
                     if (stringWithoutLastCharacter(elements[i]).equals("NO")) {
@@ -155,7 +163,7 @@ public class SnowtamParser {
                         myFieldData.getAllRunwayData().get(currentRunwayEdited).setApronContaminent(subResponse[0]);
                     }
                     myFieldData.getAllRunwayData().get(currentRunwayEdited).setApronFriction(subResponse[1]);
-                }
+                }*/
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("S")) {
