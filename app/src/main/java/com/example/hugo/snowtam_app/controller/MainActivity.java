@@ -12,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
 import com.example.hugo.snowtam_app.controller.main.ResultActivity;
 import com.example.hugo.snowtam_app.model.Browser;
+import com.example.hugo.snowtam_app.model.FieldData;
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -173,32 +176,49 @@ public class MainActivity extends AppCompatActivity {
         /*bouton pour passer a la page des resultats*/
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent ICAOtoSend = new Intent(getApplicationContext(), ResultActivity.class);
+
                 if (AirportOne.getText().length() == 0 &&  AirportTwo.getText().length() == 0 && AirportThree.getText().length() == 0  && AirportFour.getText().length() == 0 ) {
                     Toast.makeText(v.getContext(), "enter an ICAO please" ,Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                        ICAOtoSend.putExtra("AirportOne",AirportOne.getText().toString().toUpperCase());
-                        ICAOtoSend.putExtra("AirportTwo",AirportTwo.getText().toString().toUpperCase());
-                        ICAOtoSend.putExtra("AirportThree",AirportThree.getText().toString().toUpperCase());
-                        ICAOtoSend.putExtra("AirportFour",AirportFour.getText().toString().toUpperCase());
+                    /*
+                    ICAOtoSend.putExtra("AirportOne",AirportOne.getText().toString().toUpperCase());
+                    ICAOtoSend.putExtra("AirportTwo",AirportTwo.getText().toString().toUpperCase());
+                    ICAOtoSend.putExtra("AirportThree",AirportThree.getText().toString().toUpperCase());
+                    ICAOtoSend.putExtra("AirportFour",AirportFour.getText().toString().toUpperCase());
 
+                    startActivity(ICAOtoSend);
+                    */
+
+                    String ICAOList = new String();
+
+                    if (AirportOne.length() > 0) {
+                        ICAOList = ICAOList.concat(AirportOne.getText().toString().toUpperCase()+" ");
+                    }
+                    if (AirportTwo.length() > 0) {
+                        ICAOList = ICAOList.concat(AirportTwo.getText().toString().toUpperCase()+" ");
+                    }
+                    if (AirportThree.length() > 0) {
+                        ICAOList = ICAOList.concat(AirportThree.getText().toString().toUpperCase()+" ");
+                    }
+                    if (AirportFour.length() > 0) {
+                        ICAOList = ICAOList.concat(AirportFour.getText().toString().toUpperCase());
+                    }
+
+                    //ENBR ENBO ENGM ENZV
+                    ICAOList = ICAOList.trim();
+                    System.out.println(ICAOList);
+
+                    Toast.makeText(v.getContext(), "LOADING DATA" ,Toast.LENGTH_LONG).show();
+
+                    ArrayList<FieldData> allFieldData = Browser.browse(ICAOList, getApplicationContext());
+
+                    Intent ICAOtoSend = new Intent(MainActivity.this, ResultActivity.class);
+                    ICAOtoSend.putExtra("Data", allFieldData);
                     startActivity(ICAOtoSend);
                 }
             }
         });
-
-        setContentView(R.layout.main_activity);
-
-        dummyTestBrowser();
-
-
-    }
-
-    public void dummyTestBrowser(){
-        String ICAOList = new String("ENBR ENGM");
-        Intent myIntent = new Intent();
-        Browser.browse(ICAOList, getApplicationContext(), myIntent);
     }
 }

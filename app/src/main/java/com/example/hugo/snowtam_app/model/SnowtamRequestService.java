@@ -11,12 +11,12 @@ import com.android.volley.toolbox.Volley;
 import java.util.ArrayList;
 
 public class SnowtamRequestService {
-    public static void sendSnowtamRequest(String stringURL, Context myContext, ArrayList<FieldData> allFieldData, Intent myIntent){
+    public static void sendSnowtamRequest(String stringURL, Context myContext, ArrayList<FieldData> allFieldData){
         RequestQueue myQueue = Volley.newRequestQueue(myContext);
 
         URL myURL = new URL();
 
-        JsonArrayRequest myRequest = myURL.makeRequest(stringURL, allFieldData, myIntent);
+        JsonArrayRequest myRequest = myURL.makeRequest(stringURL, allFieldData);
         myQueue.add(myRequest);
     }
 

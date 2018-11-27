@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hugo.snowtam_app.R;
+import com.example.hugo.snowtam_app.model.FieldData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,32 +18,30 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
+import java.util.ArrayList;
+
+
 public class ResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    int latitude;
-    int longitude;
+    double latitude;
+    double longitude;
     String markerName;
 
+    FieldData AirportOneData = new FieldData();
+    FieldData AirportTwoData = new FieldData();
+    FieldData AirportThreeData = new FieldData();
+    FieldData AirportFourData = new FieldData();
+
+
     /*Affichage ou non des boutons en fonction de la taille du text qu'ils contiennent*/
-    void ButtonOnScreen(String Airport, Button AirportButton) {
-        if (Airport.length() > 0) {
-            AirportButton.setText(Airport);
-        } else {
-            AirportButton.setVisibility(ConstraintLayout.GONE);
-        }
+    void ButtonOnScreen(FieldData Airport, Button AirportButton) {
+        AirportButton.setText(Airport.getIcao());
+        AirportButton.setVisibility(ConstraintLayout.VISIBLE);
     }
 
-    void SelectFirstICAO(TextView textICAO, String AirportOne, String AirportTwo, String AirportThree, String AirportFour) {
-        if (AirportOne.length() > 0) {
-            textICAO.setText(AirportOne);
-        } else if (AirportTwo.length() > 0) {
-            textICAO.setText(AirportTwo);
-        } else if (AirportThree.length() > 0) {
-            textICAO.setText(AirportThree);
-        } else if (AirportFour.length() > 0) {
-            textICAO.setText(AirportFour);
-        }
+    void SelectFirstICAO(TextView textICAO,  FieldData AirportOneData) {
+        textICAO.setText(AirportOneData.getIcao());
     }
 
     @Override
@@ -83,9 +82,13 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         final Button btnOnMap = findViewById(R.id.buttonOnMap);
 
         Button btnAirportOne = findViewById(R.id.btnAirportOne);
+        btnAirportOne.setVisibility(ConstraintLayout.GONE);
         Button btnAirportTwo = findViewById(R.id.btnAirportTwo);
+        btnAirportTwo.setVisibility(ConstraintLayout.GONE);
         Button btnAirportThree = findViewById(R.id.btnAirportThree);
+        btnAirportThree.setVisibility(ConstraintLayout.GONE);
         Button btnAirportFour = findViewById(R.id.btnAirportFour);
+        btnAirportFour.setVisibility(ConstraintLayout.GONE);
 
 
         /*mise a jour des texts*/
@@ -110,43 +113,58 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
         /*recuperation des donnees depuis la page precedante*/
         Intent intent = getIntent();
+        /*
         final String AirportOne = intent.getStringExtra("AirportOne");
         final String AirportTwo = intent.getStringExtra("AirportTwo");
         final String AirportThree = intent.getStringExtra("AirportThree");
         final String AirportFour = intent.getStringExtra("AirportFour");
+        */
+
+       ArrayList<FieldData> allFieldData = (ArrayList<FieldData>) intent.getSerializableExtra("Data");
 
         /*selection du premier ICAO*/
-        SelectFirstICAO(textICAO, AirportOne, AirportTwo, AirportThree, AirportFour);
-        /*affichage ou non des boutons s il y a une donnee ou non*/
-        ButtonOnScreen(AirportOne, btnAirportOne);
-        ButtonOnScreen(AirportTwo, btnAirportTwo);
-        ButtonOnScreen(AirportThree, btnAirportThree);
-        ButtonOnScreen(AirportFour, btnAirportFour);
+        AirportOneData = allFieldData.get(0);
+        SelectFirstICAO(textICAO, AirportOneData);
+        ButtonOnScreen(AirportOneData, btnAirportOne);
 
-
-
+/*
+        if(nbAirports >= 2 )
+        {
+            AirportTwoData = allFieldData.get(1);
+            ButtonOnScreen(AirportTwoData, btnAirportTwo);
+        }
+        if(nbAirports >= 3 )
+        {
+            AirportThreeData = allFieldData.get(2);
+            ButtonOnScreen(AirportThreeData, btnAirportThree);
+        }
+        if(nbAirports >= 4 ) {
+            AirportFourData = allFieldData.get(3);
+            ButtonOnScreen(AirportFourData, btnAirportFour);
+        }
+*/
         /*Gestion des boutons ICAO*/  //<--------------------------------------------------------------------------------------------------
         btnAirportOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportOne);
+                textICAO.setText(AirportOneData.getIcao());
             }
         });
 
         btnAirportTwo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportTwo);
+                textICAO.setText(AirportTwoData.getIcao());
             }
         });
 
         btnAirportThree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportThree);
+                textICAO.setText(AirportThreeData.getIcao());
             }
         });
 
         btnAirportFour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportFour);
+                textICAO.setText(AirportFourData.getIcao());
             }
         });
 
@@ -156,37 +174,6 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                 finish();
             }
         });
-
-
-        /*affichage ou non des boutons s il y a une donnee ou non*/
-        if (AirportOne.length() > 0) {
-            btnAirportOne.setText(AirportOne);
-        } else {
-            btnAirportOne.setVisibility(ConstraintLayout.GONE);
-        }
-        if (AirportTwo.length() > 0) {
-            btnAirportTwo.setText(AirportTwo);
-        } else {
-            btnAirportTwo.setVisibility(ConstraintLayout.GONE);
-        }
-        if (AirportThree.length() > 0) {
-            btnAirportThree.setText(AirportThree);
-        } else {
-            btnAirportThree.setVisibility(ConstraintLayout.GONE);
-        }
-        if (AirportFour.length() > 0) {
-            btnAirportFour.setText(AirportFour);
-        } else {
-            btnAirportFour.setVisibility(ConstraintLayout.GONE);
-        }
-
-        /*Utilisation du bouton help*/
-        btnHelp.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
 
         /*Utilisation du bouton home*/
         btnHome.setOnClickListener(new View.OnClickListener() {
@@ -245,7 +232,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng position = new LatLng(latitude, longitude);
+        LatLng position = new LatLng(-14, 34);
         mMap.addMarker(new MarkerOptions().position(position).title(markerName));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
 

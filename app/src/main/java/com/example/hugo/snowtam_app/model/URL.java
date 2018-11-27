@@ -1,17 +1,22 @@
 package com.example.hugo.snowtam_app.model;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.hugo.snowtam_app.controller.MainActivity;
+import com.example.hugo.snowtam_app.controller.main.ResultActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -65,7 +70,7 @@ public class URL {
         return myErrorListener;
     }*/
 
-    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData, Intent myIntent) {
+    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData) {
         JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
@@ -90,6 +95,7 @@ public class URL {
                 }
                 //TODO ICI HUGO POUR L'APPEL D'INTENT
                 System.out.println("Juste un endroit où faire un breakpoint pour Debug");
+
             }
         }, new ErrorListener() {
 
