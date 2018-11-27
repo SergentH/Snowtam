@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
 import com.example.hugo.snowtam_app.controller.main.ResultActivity;
+import com.example.hugo.snowtam_app.model.Browser;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -187,5 +189,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        setContentView(R.layout.main_activity);
+
+        dummyTestBrowser();
+
+
+    }
+
+    public void dummyTestBrowser(){
+        String ICAOList = new String("ENBR ENGM");
+        Intent myIntent = new Intent();
+        Browser.browse(ICAOList, getApplicationContext(), myIntent);
     }
 }
