@@ -1,4 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Snowtam</string>
+
+    <string name="app_title">SNOWTAM</string>
+
+    <string name="search">RECHERCHER</string>
+    <string name="Home">ACCUEIL</string>
+    <string name="Help">AIDE</string>
+    <string name="SeeOnMap">Voir sur la carte</string>
+    <string name="BackToData">Retour aux données</string>
+
+    <string name="ICAO">ICAO</string>
+    <string name="latitude">Lat</string>
+    <string name="longitude">Long</string>
+    <string name="rawSNOWTAM">SNOWTAM brut</string>
+    <string name="AirportName">Nom de l\'aéroport</string>
+    <string name="StateCode">Code pays</string>
+    <string name="snowtamID">ID SNOWTAM</string>
+    <string name="StateName">Pays</string>
+    <string name="AirportTag">Tag aéroport</string>
+
+
+    <string name="airportone">Aéroport 1</string>
+    <string name="airporttwo">Aéroport 2</string>
+    <string name="airportthree">Aéroport 3</string>
+    <string name="airportfour">Aéroport 4</string>
 </resources>

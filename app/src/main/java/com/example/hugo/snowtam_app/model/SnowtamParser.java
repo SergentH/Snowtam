@@ -8,9 +8,6 @@ public class SnowtamParser {
 
         String rawSnowtam = myFieldData.getRawSnowtam();
 
-
-
-
         Integer currentRunwayEdited = -1;
 
 
@@ -20,7 +17,6 @@ public class SnowtamParser {
             if (stringLastCharacter(elements[i - 1]).equals("C")) {
                 RunwayData myRunway = new RunwayData();
                 if(stringLastCharacter(elements[i - 2]).equals("B")){
-                    //TODO Traiter pour avoir une belle date
                     myRunway.setObservationTime(stringWithoutLastCharacter(elements[i-1]));
                 }
                 myRunway.setRunWayDesignator(stringWithoutLastCharacter(elements[i]));
@@ -33,9 +29,9 @@ public class SnowtamParser {
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("E")) {
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidth(stringWithoutLastCharacter(elements[i]).replaceAll("[^A-Z]", "")+ "m");
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidth(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", "")+ "m");
                 if (stringWithoutLastCharacter(elements[i]).contains("L") || stringWithoutLastCharacter(elements[i]).contains("R")) {
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidthOffset(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", ""));
+                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidthOffset(stringWithoutLastCharacter(elements[i]).replaceAll("[^A-Z]", ""));
                 }
             }
 
@@ -78,8 +74,8 @@ public class SnowtamParser {
                 //TODO gérer le cas L R LR 60/15LR 60/0L
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("/");
                 myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankHeight(subResponse[0] + "cm");
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankDistFromEdge(subResponse[1].replaceAll("[^A-Z]", "") + "m");
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^0-9]", ""));
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankDistFromEdge(subResponse[1].replaceAll("[^0-9]", "") + "m");
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^A-Z]", ""));
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("K")) {
@@ -87,7 +83,7 @@ public class SnowtamParser {
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("\\s+");
                 if (subResponse.equals("YES")) {
                     myFieldData.getAllRunwayData().get(currentRunwayEdited).setrWLightIsObscured(true);
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^0-9]", ""));
+                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^A-Z]", ""));
                 }
             }
 
@@ -135,7 +131,7 @@ public class SnowtamParser {
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("P")) {
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceToBeDone(stringWithoutLastCharacter(elements[i]).replaceAll("[^A-Z]", "") + "m");
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceToBeDone(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", "") + "m");
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("R")) {
@@ -167,7 +163,6 @@ public class SnowtamParser {
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("S")) {
-                //TODO Traiter pour avoir une belle date
                 myFieldData.setNextObservationTime(stringWithoutLastCharacter(elements[i]));
             }
 
@@ -180,12 +175,12 @@ public class SnowtamParser {
     }
 
 
-    static private String stringLastCharacter(String myString){
+    static public String stringLastCharacter(String myString){
         String bit = myString.substring(myString.length()-1);
         return bit;
     }
 
-    static private String stringWithoutLastCharacter(String myString){
+    static public String stringWithoutLastCharacter(String myString){
         String bit = myString.substring(0, myString.length()-1).trim();
         return bit;
     }

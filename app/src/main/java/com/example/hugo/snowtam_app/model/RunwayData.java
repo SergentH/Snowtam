@@ -23,7 +23,19 @@ public class RunwayData {
     }
 
     public void setRunWayDesignator(String runWayDesignator) {
-        this.runWayDesignator = runWayDesignator;
+        String side = runWayDesignator.replaceAll("[^A-Z]", "");
+        String designator = new String();
+        if(side.equals("L")){
+            designator = SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " LEFT";
+        } else {
+            if (side.equals("R")) {
+                designator = SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " RIGHT";
+            }
+            else {
+                designator = runWayDesignator;
+            }
+        }
+        this.runWayDesignator = designator;
     }
 
     public String getClearedRWLenght() {

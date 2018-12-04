@@ -119,8 +119,9 @@ public class FieldData implements Serializable {
     public FieldData(String ICAO) {
         this.icao = ICAO;
     }
+
     public FieldData() {
-    }   
+    }
 
     public String getLatitude() {
         return latitude;
