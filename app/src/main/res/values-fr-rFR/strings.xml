@@ -9,6 +9,7 @@
     <string name="Help">HELP</string>
     <string name="SeeOnMap">See On Map</string>
     <string name="BackToData">Back To Data</string>
+    <string name="LoadingData">Chargement</string>
 
     <string name="ICAO">ICAO</string>
     <string name="latitude">Lat</string>

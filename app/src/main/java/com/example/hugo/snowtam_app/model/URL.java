@@ -70,7 +70,8 @@ public class URL {
         return myErrorListener;
     }*/
 
-    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData) {
+    public JsonArrayRequest makeRequest(String myRequestURL,  final ArrayList<FieldData> allFieldData ) {
+
         JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {

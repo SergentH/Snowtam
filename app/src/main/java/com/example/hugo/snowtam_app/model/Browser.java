@@ -4,9 +4,18 @@ import android.content.Context;
 import java.util.ArrayList;
 
 
-public class Browser {
-    public static  ArrayList<FieldData> browse(String ICAOList, final Context context){
-        final ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
+public class Browser extends FieldData{
+
+    static final ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
+
+    public static ArrayList<FieldData> getAllFieldData()
+    {
+        ArrayList<FieldData> newFieldData = new ArrayList<FieldData>();
+        newFieldData = (ArrayList<FieldData>) allFieldData;
+        return newFieldData;
+    }
+
+    public static void browse(String ICAOList, final Context context){
         String[] ICAOtable = ICAOList.trim().split("\\s+");
 
         for(int i = 0; i<ICAOtable.length; i++){
@@ -27,14 +36,6 @@ public class Browser {
         });
 
         t.start();
-
-        try {
-            t.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return allFieldData;
     }
 
 

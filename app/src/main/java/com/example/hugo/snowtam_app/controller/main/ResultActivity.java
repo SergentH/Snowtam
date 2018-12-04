@@ -34,14 +34,24 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
     FieldData AirportFourData = new FieldData();
 
 
-    /*Affichage ou non des boutons en fonction de la taille du text qu'ils contiennent*/
+
     void ButtonOnScreen(FieldData Airport, Button AirportButton) {
         AirportButton.setText(Airport.getIcao());
         AirportButton.setVisibility(ConstraintLayout.VISIBLE);
     }
 
-    void SelectFirstICAO(TextView textICAO,  FieldData AirportOneData) {
-        textICAO.setText(AirportOneData.getIcao());
+    void DataOnScreen(FieldData Airport, TextView textLatValue,TextView textLongValue,TextView textICAO,TextView textAirportNameValue,TextView textStateCodeValue,
+                      TextView textStateNameValue,TextView textairportTagValue) {
+        textLatValue.setText(Airport.getLatitude());
+        textLongValue.setText(Airport.getLongitude());
+        textICAO.setText(Airport.getIcao());
+        textAirportNameValue.setText(Airport.getAirportName());
+        textStateCodeValue.setText(Airport.getStateCode());
+        textStateNameValue.setText(Airport.getStateName());
+        textairportTagValue.setText(Airport.getAirportTag());
+        latitude=Double.parseDouble(Airport.getLatitude());
+        longitude=Double.parseDouble(Airport.getLongitude());
+        markerName = Airport.getAirportName();
     }
 
     @Override
@@ -55,10 +65,11 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mapFragment.getMapAsync(this);
         mapFragment.getView().setVisibility(ConstraintLayout.GONE);
 
+
         /*lien avec des differents elements graphiques*/
-        final TextView textTitle = findViewById(R.id.textTitle);
-        final TextView textLat = findViewById(R.id.textLat);
-        final TextView textLong = findViewById(R.id.textLong);
+        TextView textTitle = findViewById(R.id.textTitle);
+        TextView textLat = findViewById(R.id.textLat);
+        TextView textLong = findViewById(R.id.textLong);
         final TextView textrawSNOWTAM = findViewById(R.id.textrawSNOWTAM);
         final TextView textAirportName = findViewById(R.id.textAirportName);
         final TextView textStateCode = findViewById(R.id.textStateCode);
@@ -68,8 +79,8 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
         /*Donnees relatives aux ICAO*/
         final TextView textICAO = findViewById(R.id.textICAO);
-        final TextView textLatValue = findViewById(R.id.textLatValue);
-        final TextView textLongValue = findViewById(R.id.textLongValue);
+        TextView textLatValue = findViewById(R.id.textLatValue);
+        TextView textLongValue = findViewById(R.id.textLongValue);
         final TextView textrawSNOWTAMValue = findViewById(R.id.textrawSNOWTAMValue);
         final TextView textAirportNameValue = findViewById(R.id.textAirportNameValue);
         final TextView textStateCodeValue = findViewById(R.id.textStateCodeValue);
@@ -80,14 +91,16 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         Button btnHome = findViewById(R.id.buttonHome);
         Button btnHelp = findViewById(R.id.buttonHelp);
         final Button btnOnMap = findViewById(R.id.buttonOnMap);
-
         Button btnAirportOne = findViewById(R.id.btnAirportOne);
-        btnAirportOne.setVisibility(ConstraintLayout.GONE);
         Button btnAirportTwo = findViewById(R.id.btnAirportTwo);
-        btnAirportTwo.setVisibility(ConstraintLayout.GONE);
         Button btnAirportThree = findViewById(R.id.btnAirportThree);
-        btnAirportThree.setVisibility(ConstraintLayout.GONE);
         Button btnAirportFour = findViewById(R.id.btnAirportFour);
+
+
+
+        btnAirportOne.setVisibility(ConstraintLayout.GONE);
+        btnAirportTwo.setVisibility(ConstraintLayout.GONE);
+        btnAirportThree.setVisibility(ConstraintLayout.GONE);
         btnAirportFour.setVisibility(ConstraintLayout.GONE);
 
 
@@ -113,36 +126,30 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
         /*recuperation des donnees depuis la page precedante*/
         Intent intent = getIntent();
-        /*
-        final String AirportOne = intent.getStringExtra("AirportOne");
-        final String AirportTwo = intent.getStringExtra("AirportTwo");
-        final String AirportThree = intent.getStringExtra("AirportThree");
-        final String AirportFour = intent.getStringExtra("AirportFour");
-        */
 
-       ArrayList<FieldData> allFieldData = (ArrayList<FieldData>) intent.getSerializableExtra("Data");
+        ArrayList<FieldData> allFieldData = (ArrayList<FieldData>) intent.getSerializableExtra("Data");
 
         /*selection du premier ICAO*/
         AirportOneData = allFieldData.get(0);
-        SelectFirstICAO(textICAO, AirportOneData);
+        DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
+                textStateNameValue,textairportTagValue);
         ButtonOnScreen(AirportOneData, btnAirportOne);
 
-/*
-        if(nbAirports >= 2 )
+        if(allFieldData.size() >= 2 )
         {
             AirportTwoData = allFieldData.get(1);
             ButtonOnScreen(AirportTwoData, btnAirportTwo);
         }
-        if(nbAirports >= 3 )
+        if(allFieldData.size() >= 3 )
         {
             AirportThreeData = allFieldData.get(2);
             ButtonOnScreen(AirportThreeData, btnAirportThree);
         }
-        if(nbAirports >= 4 ) {
+        if(allFieldData.size() >= 4 ) {
             AirportFourData = allFieldData.get(3);
             ButtonOnScreen(AirportFourData, btnAirportFour);
         }
-*/
+
         /*Gestion des boutons ICAO*/  //<--------------------------------------------------------------------------------------------------
         btnAirportOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -232,7 +239,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng position = new LatLng(-14, 34);
+        LatLng position = new LatLng(latitude, longitude);
         mMap.addMarker(new MarkerOptions().position(position).title(markerName));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
 

@@ -1,5 +1,6 @@
 package com.example.hugo.snowtam_app.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
@@ -12,17 +13,37 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
 import com.example.hugo.snowtam_app.controller.main.ResultActivity;
-import com.example.hugo.snowtam_app.model.Browser;
 import com.example.hugo.snowtam_app.model.FieldData;
+import com.example.hugo.snowtam_app.model.SnowtamParser;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    static ArrayList<FieldData> EveryFieldData = new ArrayList<>();
+    JsonArrayRequest STMRequest;
+    final String API_KEY = "52604a70-ec93-11e8-acf9-1d6bfa3c323d";
+    String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=" + API_KEY +"&format=json&type=&Qcode=&locations=";
+    String endURL = "&qstring=&states=&ICAOonly=";
 
     /*Fonction pour modifier l affichage en fonction du nombre d aeroports entres par l utilisateur*/
     void ChangeEditTextVisibility(EditText AirportOne, EditText AirportTwo, EditText AirportThree, EditText AirportFour,
@@ -65,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                     .replace(R.id.container, MainFragment.newInstance())
                     .commitNow();
         }
+
 
         /*lien avec des differents elements graphiques*/
         Button b = findViewById(R.id.buttonSearch);
@@ -176,7 +198,6 @@ public class MainActivity extends AppCompatActivity {
         /*bouton pour passer a la page des resultats*/
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
                 if (AirportOne.getText().length() == 0 &&  AirportTwo.getText().length() == 0 && AirportThree.getText().length() == 0  && AirportFour.getText().length() == 0 ) {
                     Toast.makeText(v.getContext(), "enter an ICAO please" ,Toast.LENGTH_LONG).show();
                 }
@@ -191,7 +212,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(ICAOtoSend);
                     */
 
-                    String ICAOList = new String();
+                    String ICAOList = "";
 
                     if (AirportOne.length() > 0) {
                         ICAOList = ICAOList.concat(AirportOne.getText().toString().toUpperCase()+" ");
@@ -210,15 +231,137 @@ public class MainActivity extends AppCompatActivity {
                     ICAOList = ICAOList.trim();
                     System.out.println(ICAOList);
 
-                    Toast.makeText(v.getContext(), "LOADING DATA" ,Toast.LENGTH_LONG).show();
 
-                    ArrayList<FieldData> allFieldData = Browser.browse(ICAOList, getApplicationContext());
+                    String[] ICAOtable = ICAOList.trim().split("\\s+");
+
+                    for (String aICAOtable : ICAOtable) {
+                        FieldData newField = new FieldData(aICAOtable);
+                        EveryFieldData.add(newField);
+                    }
+
+
+                    Thread tAirFieldRequest = new Thread(new Runnable(){
+
+                        @Override
+                        public void run() {
+                            sendAirfieldRequest();
+                        }
+                    });
+
+                    tAirFieldRequest.start();
+
+                    try {
+                        tAirFieldRequest.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
                     Intent ICAOtoSend = new Intent(MainActivity.this, ResultActivity.class);
-                    ICAOtoSend.putExtra("Data", allFieldData);
+                    ICAOtoSend.putExtra("Data", EveryFieldData);
                     startActivity(ICAOtoSend);
+
                 }
             }
         });
+    }
+
+    public void sendSnowtamRequest(String stringURL, Context myContext){
+        RequestQueue myQueue = Volley.newRequestQueue(myContext);
+
+        JsonArrayRequest myRequest = makeRequest(stringURL);
+        myQueue.add(myRequest);
+    }
+
+    public void sendAirfieldRequest(){
+
+
+        sendSnowtamRequest(createRequestURL(), MainActivity.this);
+        for(int i = 0; i< EveryFieldData.size();i++){
+            Document requestFeedback;
+            try {
+                requestFeedback = Jsoup.connect("https://www.world-airport-codes.com/search/?s="+EveryFieldData.get(i).getIcao()).get();
+
+                Element airfieldName = requestFeedback.getElementsByClass("airport-title").get(0);
+                Element airportTag = requestFeedback.getElementsByClass("airportAttributeValue").get(0);
+                Element latitude = requestFeedback.getElementsByClass("airportAttributeValue").get(5);
+                Element longitude = requestFeedback.getElementsByClass("airportAttributeValue").get(6);
+
+                EveryFieldData.get(i).setAirportName(airfieldName.ownText());
+                EveryFieldData.get(i).setAirportTag(airportTag.text());
+                EveryFieldData.get(i).setLatitude(latitude.text());
+                EveryFieldData.get(i).setLongitude(longitude.text());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String createRequestURL() {
+
+        String fullURL = "";
+        //add check IACO size ????
+
+        switch (EveryFieldData.size()) {
+            case 1:
+                fullURL = basicURL + EveryFieldData.get(0).getIcao() + endURL;
+                break;
+            case 2:
+                fullURL = basicURL + EveryFieldData.get(0).getIcao() + "," + EveryFieldData.get(1).getIcao() + endURL;
+                break;
+            case 3:
+                fullURL = basicURL + EveryFieldData.get(0).getIcao() + "," + EveryFieldData.get(1).getIcao() + "," + EveryFieldData.get(2).getIcao() + endURL;
+                break;
+            case 4:
+                fullURL = basicURL + EveryFieldData.get(0).getIcao() + "," + EveryFieldData.get(1).getIcao() + "," + EveryFieldData.get(2).getIcao() + "," + EveryFieldData.get(3).getIcao() + endURL;
+                break;
+
+            default:
+                System.err.println("YOU MUST WRITE BETWEEN 1 AND 4 VALUES OF IACO");
+                break;
+        }
+        return fullURL;
+    }
+
+
+
+
+    public JsonArrayRequest makeRequest(String myRequestURL) {
+
+        STMRequest = new JsonArrayRequest(Request.Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                JSONObject currentNOTAM;
+                for(int i = 0; i< EveryFieldData.size();i++){
+                    for(int j=0;j<response.length();j++){
+                        try {
+                            currentNOTAM = response.getJSONObject(j);
+                            if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(EveryFieldData.get(i).getIcao())){
+                                EveryFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
+                                EveryFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
+                                EveryFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
+                                EveryFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
+                                SnowtamParser.parseSnowtam(EveryFieldData.get(i));
+                                break;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                // -  - - - - -  - - - -  -DEBUG
+                System.out.println("Juste un endroit où faire un breakpoint pour Debug");
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //
+                System.err.println("Erreur response : " + error);
+                error.printStackTrace();
+            }
+        });
+        return STMRequest;
     }
 }
