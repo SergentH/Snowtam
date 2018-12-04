@@ -102,4 +102,28 @@ public class URL {
         });
         return myRequest;
     }
+
+    public void makeFakeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData, Intent myIntent) throws JSONException {
+        JSONArray response = DummyRequester.getJsonArray();
+                JSONObject currentNOTAM = null;
+                for(int i = 0; i< allFieldData.size();i++){
+                    for(int j=0;j<response.length();j++){
+                        try {
+                            currentNOTAM = response.getJSONObject(j);
+                            if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(allFieldData.get(i).getIcao())){
+                                allFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
+                                allFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
+                                allFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
+                                allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
+                                SnowtamParser.parseSnowtam(allFieldData.get(i));
+                                break;
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+    }
+
 }

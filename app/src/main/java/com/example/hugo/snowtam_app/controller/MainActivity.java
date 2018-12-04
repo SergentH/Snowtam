@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.model.Browser;
+import com.example.hugo.snowtam_app.model.FieldData;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -15,14 +18,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        dummyTestBrowser();
-
+        ArrayList<FieldData> myData = dummyFakeTestBrowser();
+        System.out.println("Pour mettre un breakpoint et vérifier");
 
     }
 
-    public void dummyTestBrowser(){
+    public ArrayList<FieldData>  dummyTestBrowser(){
         String ICAOList = new String("ENBR ENGM");
         Intent myIntent = new Intent();
-        Browser.browse(ICAOList, getApplicationContext(), myIntent);
+        ArrayList<FieldData> myData = Browser.browse(ICAOList, getApplicationContext(), myIntent);
+        return myData;
+    }
+
+    public ArrayList<FieldData>  dummyFakeTestBrowser(){
+        String ICAOList = new String("ENBR ENGM");
+        Intent myIntent = new Intent();
+        ArrayList<FieldData> myData = Browser.fakeBrowse(ICAOList, getApplicationContext(), myIntent);
+        return myData;
     }
 }

@@ -8,6 +8,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 
+import org.json.JSONException;
+
 import java.util.ArrayList;
 
 public class SnowtamRequestService {
@@ -18,6 +20,15 @@ public class SnowtamRequestService {
 
         JsonArrayRequest myRequest = myURL.makeRequest(stringURL, allFieldData, myIntent);
         myQueue.add(myRequest);
+    }
+
+    public static void fakeSendSnowtamRequest(String stringURL, Context myContext, ArrayList<FieldData> allFieldData, Intent myIntent){
+        URL myURL = new URL();
+        try {
+            myURL.makeFakeRequest(stringURL, allFieldData, myIntent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 }
