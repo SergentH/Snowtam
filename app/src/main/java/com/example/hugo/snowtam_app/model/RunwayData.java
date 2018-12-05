@@ -67,7 +67,43 @@ public class RunwayData {
     }
 
     public void setFrictionMeasurementDevice(String frictionMeasurementDevice) {
-        this.frictionMeasurementDevice = frictionMeasurementDevice;
+        if(frictionMeasurementDevice.equals("GRT")){
+            this.frictionMeasurementDevice = "Friction device : Grip tester";
+        } else {
+            if(frictionMeasurementDevice.equals("MUM")){
+                this.frictionMeasurementDevice = "Friction device : Mu-meter";
+            } else {
+                if(frictionMeasurementDevice.equals("RFT")){
+                    this.frictionMeasurementDevice = "Friction device : Runway friction tester";
+                } else {
+                    if(frictionMeasurementDevice.equals("SFH")){
+                        this.frictionMeasurementDevice = "Friction device : Surface friction tester (high-pressure tire)";
+                    } else {
+                        if(frictionMeasurementDevice.equals("SFL")){
+                            this.frictionMeasurementDevice = "Friction device : Surface friction tester (low-pressure tire)";
+                        } else {
+                            if(frictionMeasurementDevice.equals("SKH")){
+                                this.frictionMeasurementDevice = "Friction device : Skiddometer (high-pressure tire)";
+                            } else {
+                                if(frictionMeasurementDevice.equals("SKL")){
+                                    this.frictionMeasurementDevice = "Friction device : Skiddometer(low-pressure tire)";
+                                } else {
+                                    if(frictionMeasurementDevice.equals("TAP")){
+                                        this.frictionMeasurementDevice = "Friction device : Tapley meter";
+                                    }
+                                }
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        }
+        this.frictionMeasurementDevice = "Friction device : " + frictionMeasurementDevice;
     }
 
     public String getTaxiWaySnowBank() {
@@ -239,7 +275,7 @@ public class RunwayData {
 
     private String runWayDesignator = null;                                                          // C)
 
-    private String clearedRWLenght = "All runway" ;                                                 // D)
+    private String clearedRWLenght = "All runway cleared" ;                                                 // D)
 
     private String clearedRWWidth = null; //"TOTAL"                                                // E)
     //TODO gérer le L/R LR
@@ -279,6 +315,22 @@ public class RunwayData {
     private Boolean isExpired;
 
     private ArrayList<RunwaySegmentData> allRunwaySegmentData = new ArrayList<RunwaySegmentData>();
+
+    public String getSegmentCondition(){
+        return "Condition : Threshold: " + this.getAllRunwaySegmentData().get(0).getDepositOverThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getDepositOverThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getDepositOverThirdRW();
+    }
+
+    public String getSegmentMeanDepth(){
+        return "Mean depth : Threshold: " + this.getAllRunwaySegmentData().get(0).getMeanDepthDepositThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getMeanDepthDepositThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getMeanDepthDepositThirdRW();
+    }
+
+    public String getSegmentFriction(){
+        String result = "Braking action : Threshold: " + this.getAllRunwaySegmentData().get(0).getFrictionMeasurement() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getFrictionMeasurement() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getFrictionMeasurement();
+        if (this.getFrictionMeasurementDevice() != null){
+            result = result + "\nInstrument : " + this.getFrictionMeasurementDevice();
+        }
+        return result;
+    }
 
 
 

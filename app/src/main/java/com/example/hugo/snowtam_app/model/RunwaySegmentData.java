@@ -10,15 +10,14 @@ public class RunwaySegmentData {
     }
 
     public void setDepositOverThirdRW(String depositOverThirdRW) {
-        String fullData = "Condition : ";
-        for(int i =0; i < depositOverThirdRW.length(); i++){
-            if(i != 0){
-                fullData = fullData + " over ";
+        String fullData;
+        fullData = SnowtamParser.convertCondition(depositOverThirdRW.charAt(0));
+        if(depositOverThirdRW.length() > 1){
+            for(int i =1; i < depositOverThirdRW.length(); i++){
+                fullData = fullData + " over " + SnowtamParser.convertCondition(depositOverThirdRW.charAt(i));
             }
-            fullData = fullData + SnowtamParser.convertCondition(depositOverThirdRW.charAt(i));
         }
         this.depositOverThirdRW = fullData;
-
     }
 
     public String getMeanDepthDepositThirdRW() {
@@ -26,8 +25,7 @@ public class RunwaySegmentData {
     }
 
     public void setMeanDepthDepositThirdRW(String meanDepthDepositThirdRW) {
-        String fullData = "Mean depth : ";
-        this.meanDepthDepositThirdRW = fullData + meanDepthDepositThirdRW;
+        this.meanDepthDepositThirdRW = meanDepthDepositThirdRW;
     }
 
     public String getFrictionMeasurement() {
@@ -35,6 +33,6 @@ public class RunwaySegmentData {
     }
 
     public void setFrictionMeasurement(String frictionMeasurement) {
-        this.frictionMeasurement = "Friction : " + SnowtamParser.convertFriction(frictionMeasurement);
+        this.frictionMeasurement = SnowtamParser.convertFriction(frictionMeasurement);
     }
 }
