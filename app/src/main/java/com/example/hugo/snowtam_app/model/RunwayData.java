@@ -24,18 +24,18 @@ public class RunwayData {
 
     public void setRunWayDesignator(String runWayDesignator) {
         if(runWayDesignator.equals("88")){
-            this.runWayDesignator = "All runways";
+            this.runWayDesignator = "ALL RUNWAYS";
         }
         String side = runWayDesignator.replaceAll("[^A-Z]", "");
         String designator = new String();
         if(side.equals("L")){
-            designator = "Runway " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " left";
+            designator = "RUNWAY " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " LEFT";
         } else {
             if (side.equals("R")) {
-                designator = "Runway " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " right";
+                designator = "RUNWAY " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " RIGHT";
             }
             else {
-                designator = "Runway " + runWayDesignator;
+                designator = "RUNWAY " + runWayDesignator;
             }
         }
         this.runWayDesignator = designator;
@@ -46,7 +46,7 @@ public class RunwayData {
     }
 
     public void setClearedRWLenght(String clearedRWLenght) {
-        this.clearedRWLenght = "Cleared runway length " + clearedRWLenght +"m";
+        this.clearedRWLenght = "CLEARED RUNWAY LENGTH " + clearedRWLenght +"m";
     }
 
     public String getClearedRWWidth() {
@@ -55,9 +55,9 @@ public class RunwayData {
 
     public void setClearedRWWidth(String clearedRWWidth) {
         if(this.getClearedRWWidthOffset().equals(null)){
-            this.clearedRWWidth = "Cleared runway width " + clearedRWWidth + " center";
+            this.clearedRWWidth = "CLEARED RUNWAY WIDTH " + clearedRWWidth + " CENTERED";
         } else {
-            this.clearedRWWidth = "Cleared runway width " + clearedRWWidth + " " + this.getClearedRWWidthOffset();
+            this.clearedRWWidth = "CLEARED RUNWAY WIDTH  " + clearedRWWidth + " " + this.getClearedRWWidthOffset();
         }
 
     }
@@ -68,28 +68,28 @@ public class RunwayData {
 
     public void setFrictionMeasurementDevice(String frictionMeasurementDevice) {
         if(frictionMeasurementDevice.equals("GRT")){
-            this.frictionMeasurementDevice = "Friction device : Grip tester";
+            this.frictionMeasurementDevice = "Grip tester";
         } else {
             if(frictionMeasurementDevice.equals("MUM")){
-                this.frictionMeasurementDevice = "Friction device : Mu-meter";
+                this.frictionMeasurementDevice = "Mu-meter";
             } else {
                 if(frictionMeasurementDevice.equals("RFT")){
-                    this.frictionMeasurementDevice = "Friction device : Runway friction tester";
+                    this.frictionMeasurementDevice = "Runway friction tester";
                 } else {
                     if(frictionMeasurementDevice.equals("SFH")){
-                        this.frictionMeasurementDevice = "Friction device : Surface friction tester (high-pressure tire)";
+                        this.frictionMeasurementDevice = "Surface friction tester (high-pressure tire)";
                     } else {
                         if(frictionMeasurementDevice.equals("SFL")){
-                            this.frictionMeasurementDevice = "Friction device : Surface friction tester (low-pressure tire)";
+                            this.frictionMeasurementDevice = "Surface friction tester (low-pressure tire)";
                         } else {
                             if(frictionMeasurementDevice.equals("SKH")){
-                                this.frictionMeasurementDevice = "Friction device : Skiddometer (high-pressure tire)";
+                                this.frictionMeasurementDevice = "Skiddometer (high-pressure tire)";
                             } else {
                                 if(frictionMeasurementDevice.equals("SKL")){
-                                    this.frictionMeasurementDevice = "Friction device : Skiddometer(low-pressure tire)";
+                                    this.frictionMeasurementDevice = "Skiddometer (low-pressure tire)";
                                 } else {
                                     if(frictionMeasurementDevice.equals("TAP")){
-                                        this.frictionMeasurementDevice = "Friction device : Tapley meter";
+                                        this.frictionMeasurementDevice = "Tapley meter";
                                     }
                                 }
                             }
@@ -103,7 +103,7 @@ public class RunwayData {
             }
 
         }
-        this.frictionMeasurementDevice = "Friction device : " + frictionMeasurementDevice;
+        this.frictionMeasurementDevice = frictionMeasurementDevice;
     }
 
     public String getTaxiWaySnowBank() {
@@ -118,44 +118,21 @@ public class RunwayData {
         return allRunwaySegmentData;
     }
 
-    public String getCriticalSnowbankHeight() {
-        return criticalSnowbankHeight;
+    public String getCriticalSnowbank() {
+        return criticalSnowbank;
     }
 
-    public void setCriticalSnowbankHeight(String criticalSnowbankHeight) {
-        this.criticalSnowbankHeight = criticalSnowbankHeight;
+    public void setCriticalSnowbank(String criticalSnowbank) {
+        this.criticalSnowbank = criticalSnowbank;
     }
 
-    public String getCriticalSnowbankDistFromEdge() {
-        return criticalSnowbankDistFromEdge;
+
+    public void setrWLight(String rWLight) {
+        this.rWLight = rWLight;
     }
 
-    public void setCriticalSnowbankDistFromEdge(String criticalSnowbankDistFromEdge) {
-        this.criticalSnowbankDistFromEdge = criticalSnowbankDistFromEdge;
-    }
-
-    public String getCriticalSnowbankSide() {
-        return criticalSnowbankSide;
-    }
-
-    public void setCriticalSnowbankSide(String criticalSnowbankSide) {
-        this.criticalSnowbankSide = criticalSnowbankSide;
-    }
-
-    public Boolean getrWLightIsObscured() {
-        return rWLightIsObscured;
-    }
-
-    public void setrWLightIsObscured(Boolean rWLightIsObscured) {
-        this.rWLightIsObscured = rWLightIsObscured;
-    }
-
-    public String getrWLightSideObscured() {
-        return rWLightSideObscured;
-    }
-
-    public void setrWLightSideObscured(String rWLightSideObscured) {
-        this.rWLightSideObscured = rWLightSideObscured;
+    public String getrWLight() {
+        return rWLight;
     }
 
     public String getClearedRWWidthOffset() {
@@ -165,28 +142,20 @@ public class RunwayData {
     public void setClearedRWWidthOffset(String clearedRWWidthOffset) {
         String side = clearedRWWidthOffset.replaceAll("[^A-Z]", "");
         if(side.equals("L")){
-            this.clearedRWWidthOffset = "left";
+            this.clearedRWWidthOffset = "LEFT";
         } else {
             if (side.equals("R")) {
-                this.clearedRWWidthOffset = "right";
+                this.clearedRWWidthOffset = "RIGHT";
             }
         }
     }
 
-    public String getFurtherClearanceLenght() {
-        return furtherClearanceLenght;
+    public String getFurtherClearance() {
+        return furtherClearance;
     }
 
-    public void setFurtherClearanceLenght(String furtherClearanceLenght) {
-        this.furtherClearanceLenght = furtherClearanceLenght;
-    }
-
-    public String getFurtherClearanceWidth() {
-        return furtherClearanceWidth;
-    }
-
-    public void setFurtherClearanceWidth(String furtherClearanceWidth) {
-        this.furtherClearanceWidth = furtherClearanceWidth;
+    public void setFurtherClearance(String furtherClearance) {
+        this.furtherClearance = furtherClearance;
     }
 
     public String getFurtherClearanceToBeDone() {
@@ -275,7 +244,7 @@ public class RunwayData {
 
     private String runWayDesignator = null;                                                          // C)
 
-    private String clearedRWLenght = "All runway cleared" ;                                                 // D)
+    private String clearedRWLenght = "All runway cleared";                                                 // D)
 
     private String clearedRWWidth = null; //"TOTAL"                                                // E)
     //TODO gérer le L/R LR
@@ -283,19 +252,12 @@ public class RunwayData {
 
     private String frictionMeasurementDevice = null; //"Measurement device not specified"           // H) TOUJOURS AFFICHER SI H PRESENT
 
-    private String criticalSnowbankHeight = null; //"No snowbank on the sides of runway"            // J) SI PAS DE J NE PAS AFFICHER
-    private String criticalSnowbankDistFromEdge = null; //"No snowbank on the sides of runway"      // J)
-    //TODO gérer le L/R LR
-    private String criticalSnowbankSide = null; //"No snowbank on the sides of runway"              // J)
+    private String criticalSnowbank = null; //"No snowbank on the sides of runway"            // J) SI PAS DE J NE PAS AFFICHER
 
-    private Boolean rWLightIsObscured = false;                                                      // K) SI FALSE NE PAS AFFICHER L'INFO
-    //TODO gérer le L/R LR
-    private String rWLightSideObscured = null; //"No light obscured"                                 // K) SI AU DESSOUS FALSE NE PAS AFFICHER INFO
+    private String rWLight = null; //"No light obscured"                                 // K) SI AU DESSOUS FALSE NE PAS AFFICHER INFO
 
-    private String furtherClearanceLenght = null;  //"NO DATA"                                      // L)
-    private String furtherClearanceWidth = null;  //"NO DATA"                                       // L)
+    private String furtherClearance = null;  //"NO DATA"                                      // L)
 
-    //TODO gérer bien le time UTC
     private String furtherClearanceToBeDone = null; //"No clearance planified"                      // M) SI M NON SPECIFIE NE PAS AFFICHER
 
     //TODO schlag temporaire
@@ -317,20 +279,23 @@ public class RunwayData {
     private ArrayList<RunwaySegmentData> allRunwaySegmentData = new ArrayList<RunwaySegmentData>();
 
     public String getSegmentCondition(){
-        return "Condition : Threshold: " + this.getAllRunwaySegmentData().get(0).getDepositOverThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getDepositOverThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getDepositOverThirdRW();
+        return "CONDITION : Threshold: " + this.getAllRunwaySegmentData().get(0).getDepositOverThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getDepositOverThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getDepositOverThirdRW();
     }
 
     public String getSegmentMeanDepth(){
-        return "Mean depth : Threshold: " + this.getAllRunwaySegmentData().get(0).getMeanDepthDepositThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getMeanDepthDepositThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getMeanDepthDepositThirdRW();
+        return "MEAN DEPTH : Threshold: " + this.getAllRunwaySegmentData().get(0).getMeanDepthDepositThirdRW() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getMeanDepthDepositThirdRW() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getMeanDepthDepositThirdRW();
     }
 
     public String getSegmentFriction(){
-        String result = "Braking action : Threshold: " + this.getAllRunwaySegmentData().get(0).getFrictionMeasurement() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getFrictionMeasurement() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getFrictionMeasurement();
+        String result = "BRAKING ACTION : Threshold: " + this.getAllRunwaySegmentData().get(0).getFrictionMeasurement() + " / Mid-runway: " + this.getAllRunwaySegmentData().get(1).getFrictionMeasurement() + " / Roll out: " + this.getAllRunwaySegmentData().get(2).getFrictionMeasurement();
         if (this.getFrictionMeasurementDevice() != null){
             result = result + "\nInstrument : " + this.getFrictionMeasurementDevice();
         }
         return result;
     }
+
+
+
 
 
 

@@ -73,28 +73,51 @@ public class SnowtamParser {
             if (stringLastCharacter(elements[i - 1]).equals("J")) {
                 //TODO gérer le cas L R LR 60/15LR 60/0L
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("/");
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankHeight(subResponse[0] + "cm");
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankDistFromEdge(subResponse[1].replaceAll("[^0-9]", "") + "m");
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^A-Z]", ""));
+                String snowbankHeight = (subResponse[0] + "cm");
+                String snowbankDistFromEdge = (subResponse[1].replaceAll("[^0-9]", "") + "m");
+                String snowbankSide= (subResponse[1].replaceAll("[^A-Z]", ""));
+
+                if(snowbankSide != null){
+                    if(snowbankSide.equals("L")){
+                        snowbankSide = "LEFT";
+                    }
+                    if(snowbankSide.equals("R")){
+                        snowbankSide = "RIGHT";
+                    }
+                    if(snowbankSide.equals("LR")){
+                        snowbankSide = "LEFT and RIGHT";
+                    }
+                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbank("CRITICAL SNOW BANK: " + snowbankHeight + "/" + snowbankDistFromEdge + " " + snowbankSide + " of runway");
+                }
+
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("K")) {
-                //TODO gérer le cas L R LR 60/15LR 60/0L
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("\\s+");
                 if (subResponse.equals("YES")) {
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setrWLightIsObscured(true);
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setCriticalSnowbankSide(subResponse[1].replaceAll("[^A-Z]", ""));
+                    String side = subResponse[1].replaceAll("[^A-Z]", "");
+                    if(side.equals("L")){
+                        myFieldData.getAllRunwayData().get(currentRunwayEdited).setrWLight("LIGHT OBSCURED: LEFT side of runway");
+                    }
+                    if(side.equals("R")){
+                        myFieldData.getAllRunwayData().get(currentRunwayEdited).setrWLight("LIGHT OBSCURED: RIGHT side of runway");
+                    }
+                    if(side.equals("LR")){
+                        myFieldData.getAllRunwayData().get(currentRunwayEdited).setrWLight("LIGHT OBSCURED: BOTH SIDE of runway");
+                    }
                 }
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("L")) {
+                String furtherClearanceLenght;
+                String furtherClearanceWidth;
                 if (stringWithoutLastCharacter(elements[i]).equals("TOTAL")) {
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceLenght("TOTAL");
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceLenght("TOTAL");
+                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearance("FURTHER CLEARANCE: TOTAL RUNWAY");
                 } else {
                     String[] subResponse = stringWithoutLastCharacter(elements[i]).split("/");
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceLenght(subResponse[0] + "m");
-                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceWidth(subResponse[1] + "m");
+                    furtherClearanceLenght = subResponse[0] + "m";
+                    furtherClearanceWidth = subResponse[1] + "m";
+                    myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearance("FURTHER CLEARANCE: " + furtherClearanceLenght + "/" + furtherClearanceWidth);
                 }
             }
 
