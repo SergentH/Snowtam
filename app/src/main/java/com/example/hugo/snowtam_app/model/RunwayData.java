@@ -220,46 +220,46 @@ public class RunwayData {
         this.allRunwaySegmentData = allRunwaySegmentData;
     }
 
-    private String observationTime = "NO DATA";                             // B)
+    private String observationTime = null;   //"NO DATA"                                             // B)
 
-    private String runWayDesignator;                            // C)
+    private String runWayDesignator = null;                                                          // C)
 
-    private String clearedRWLenght = "TOTAL";                             // D)
+    private String clearedRWLenght = null;  //"TOTAL"                                               // D)
 
-    private String clearedRWWidth = "TOTAL";                              // E)
+    private String clearedRWWidth = null; //"TOTAL"                                                // E)
     //TODO gérer le L/R LR
-    private String clearedRWWidthOffset = "No offset on runway";          // E)
+    private String clearedRWWidthOffset = null;  //"No offset on runway"                            // E)
 
-    private String frictionMeasurementDevice = "Measurement device not specified"; // H) TOUJOURS AFFICHER SI H PRESENT
+    private String frictionMeasurementDevice = null; //"Measurement device not specified"           // H) TOUJOURS AFFICHER SI H PRESENT
 
-    private String criticalSnowbankHeight = "No snowbank on the sides of runway";      // J) SI PAS DE J NE PAS AFFICHER
-    private String criticalSnowbankDistFromEdge = "No snowbank on the sides of runway";// J)
+    private String criticalSnowbankHeight = null; //"No snowbank on the sides of runway"            // J) SI PAS DE J NE PAS AFFICHER
+    private String criticalSnowbankDistFromEdge = null; //"No snowbank on the sides of runway"      // J)
     //TODO gérer le L/R LR
-    private String criticalSnowbankSide = "No snowbank on the sides of runway";        // J)
+    private String criticalSnowbankSide = null; //"No snowbank on the sides of runway"              // J)
 
-    private Boolean rWLightIsObscured = false;                  // K) SI FALSE NE PAS AFFICHER L'INFO
+    private Boolean rWLightIsObscured = false;                                                      // K) SI FALSE NE PAS AFFICHER L'INFO
     //TODO gérer le L/R LR
-    private String rWLightSideObscured = "No light obscured";   // K) SI AU DESSOUS FALSE NE PAS AFFICHER INFO
+    private String rWLightSideObscured = null; //"No light obscured"                                 // K) SI AU DESSOUS FALSE NE PAS AFFICHER INFO
 
-    private String furtherClearanceLenght = "NO DATA";                      // L)
-    private String furtherClearanceWidth = "NO DATA";                       // L)
+    private String furtherClearanceLenght = null;  //"NO DATA"                                      // L)
+    private String furtherClearanceWidth = null;  //"NO DATA"                                       // L)
 
     //TODO gérer bien le time UTC
-    private String furtherClearanceToBeDone = "No clearance planified";                    // M) SI M NON SPECIFIE NE PAS AFFICHER
+    private String furtherClearanceToBeDone = null; //"No clearance planified"                      // M) SI M NON SPECIFIE NE PAS AFFICHER
 
     //TODO schlag temporaire
-    private String TaxiWayRAW = "NO DATA";
+    private String TaxiWayRAW = null;   //"NO DATA"
 
-    private String TaxiWayQuality = "Taxi way contaminent not specified";                              // N)
-    private String taxiWayFriction = "Taxi way friction not specified";           // N)
+    private String TaxiWayQuality = null;     //"Taxi way contaminent not specified"                  // N)
+    private String taxiWayFriction = null;  //"Taxi way friction not specified"                       // N)
 
-    private String taxiWaySnowBank = "No snowbank on taxiway";  // P)
+    private String taxiWaySnowBank = null; //"No snowbank on taxiway"                                 // P)
 
     //TODO schlag temporaire
-    private String apronRAW = "NO DATA";
+    private String apronRAW = null;  //"NO DATA"
 
-    private String apronContaminent = "Apron contaminent not specified";                            // R)
-    private String apronFriction = "Apron friction not specified";                                  // R)
+    private String apronContaminent = null; //"Apron contaminent not specified"                       // R)
+    private String apronFriction = null; //"Apron friction not specified                              // R)
     //TODO Si j'ai le temps
     private Boolean isExpired;
 

@@ -24,9 +24,9 @@ public class FieldData implements Serializable {
     private String airportTag;
 
 
-    private String nextObservationTime = "Undefined";         // S)
+    private String nextObservationTime = null;    //"Undefined"     // S)
     //TODO comparer les dates
-    private String remark = "No remarks";                      // T)
+    private String remark = null;    //"No remarks"                  // T)
     private ArrayList<RunwayData> allRunwayData = new ArrayList<RunwayData>();
 
     public void setIcao(String icao) {
