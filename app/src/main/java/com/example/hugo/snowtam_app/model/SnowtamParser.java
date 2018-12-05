@@ -154,7 +154,7 @@ public class SnowtamParser {
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("P")) {
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setFurtherClearanceToBeDone(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", "") + "m");
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setTaxiWaySnowBank("TAXIWAY SNOWBANKS: YES SPACE " + stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", "") + "m");
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("R")) {

@@ -163,7 +163,15 @@ public class RunwayData {
     }
 
     public void setFurtherClearanceToBeDone(String furtherClearanceToBeDone) {
-        this.furtherClearanceToBeDone = furtherClearanceToBeDone;
+        SimpleDateFormat fmt = new SimpleDateFormat("hhmm");
+        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
+        try {
+            this.furtherClearanceToBeDone= "NEXT CLEARANCE: " + fmt.parse(furtherClearanceToBeDone).toString();
+
+        } catch (ParseException e) {
+            this.furtherClearanceToBeDone = furtherClearanceToBeDone;
+            e.printStackTrace();
+        }
     }
 
     public String getTaxiWayQuality() {
@@ -208,7 +216,7 @@ public class RunwayData {
         SimpleDateFormat fmt = new SimpleDateFormat("MMddhhmmYYYY");
         fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
         try {
-            this.observationTime = fmt.parse(dateWithYear).toString();
+            this.observationTime = "OBSERVATION TIME: " + fmt.parse(dateWithYear).toString();
 
         } catch (ParseException e) {
             this.observationTime = dateWithYear;
@@ -231,8 +239,6 @@ public class RunwayData {
     public void setApronRAW(String apronRAW) {
         this.apronRAW = apronRAW;
     }
-
-
 
 
 
@@ -273,8 +279,6 @@ public class RunwayData {
 
     private String apronContaminent = null; //"Apron contaminent not specified"                       // R)
     private String apronFriction = null; //"Apron friction not specified                              // R)
-    //TODO Si j'ai le temps
-    private Boolean isExpired;
 
     private ArrayList<RunwaySegmentData> allRunwaySegmentData = new ArrayList<RunwaySegmentData>();
 

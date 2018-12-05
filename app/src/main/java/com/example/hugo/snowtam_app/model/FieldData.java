@@ -60,7 +60,7 @@ public class FieldData implements Serializable {
         fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         try {
-            this.nextObservationTime = fmt.parse(dateWithYear).toString();
+            this.nextObservationTime = "NEXT OBSERVATION: " + fmt.parse(dateWithYear).toString();
 
         } catch (ParseException e) {
             this.nextObservationTime = nextObservationTime;
