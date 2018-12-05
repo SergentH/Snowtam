@@ -79,8 +79,8 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
         /*Donnees relatives aux ICAO*/
         final TextView textICAO = findViewById(R.id.textICAO);
-        TextView textLatValue = findViewById(R.id.textLatValue);
-        TextView textLongValue = findViewById(R.id.textLongValue);
+        final TextView textLatValue = findViewById(R.id.textLatValue);
+        final TextView textLongValue = findViewById(R.id.textLongValue);
         final TextView textrawSNOWTAMValue = findViewById(R.id.textrawSNOWTAMValue);
         final TextView textAirportNameValue = findViewById(R.id.textAirportNameValue);
         final TextView textStateCodeValue = findViewById(R.id.textStateCodeValue);
@@ -153,25 +153,29 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         /*Gestion des boutons ICAO*/  //<--------------------------------------------------------------------------------------------------
         btnAirportOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportOneData.getIcao());
+                DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
+                        textStateNameValue,textairportTagValue);
             }
         });
 
         btnAirportTwo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportTwoData.getIcao());
+                DataOnScreen(AirportTwoData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
+                        textStateNameValue,textairportTagValue);
             }
         });
 
         btnAirportThree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportThreeData.getIcao());
+                DataOnScreen(AirportThreeData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
+                        textStateNameValue,textairportTagValue);
             }
         });
 
         btnAirportFour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                textICAO.setText(AirportFourData.getIcao());
+                DataOnScreen(AirportFourData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
+                        textStateNameValue,textairportTagValue);
             }
         });
 
