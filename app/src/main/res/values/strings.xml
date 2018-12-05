@@ -2,6 +2,8 @@
     <string name="app_name">Snowtam_App</string>
 
     <string name="app_title">SNOWTAM</string>
+    <string name="TextProgression">Progression Data</string>
+    <string name="ProgressionDone">Done</string>
 
     <string name="search">SEARCH</string>
     <string name="Home">HOME</string>

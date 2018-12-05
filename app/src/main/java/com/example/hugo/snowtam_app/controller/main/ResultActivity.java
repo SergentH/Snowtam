@@ -1,12 +1,14 @@
 package com.example.hugo.snowtam_app.controller.main;
 
 import android.content.Intent;
+import android.location.Location;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.model.FieldData;
@@ -14,7 +16,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
@@ -23,17 +27,24 @@ import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // LatLng position = new LatLng(latitude, longitude);
+        // mMap.addMarker(new MarkerOptions().position(position));
+        // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 8));
+    }
+
+
+    GoogleMap mMap;
     double latitude;
     double longitude;
-    String markerName;
 
     FieldData AirportOneData = new FieldData();
     FieldData AirportTwoData = new FieldData();
     FieldData AirportThreeData = new FieldData();
     FieldData AirportFourData = new FieldData();
-
-
 
     void ButtonOnScreen(FieldData Airport, Button AirportButton) {
         AirportButton.setText(Airport.getIcao());
@@ -41,7 +52,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     void DataOnScreen(FieldData Airport, TextView textLatValue,TextView textLongValue,TextView textICAO,TextView textAirportNameValue,TextView textStateCodeValue,
-                      TextView textStateNameValue,TextView textairportTagValue) {
+                      TextView textStateNameValue,TextView textairportTagValue, TextView textrawSNOWTAMValue) {
         textLatValue.setText(Airport.getLatitude());
         textLongValue.setText(Airport.getLongitude());
         textICAO.setText(Airport.getIcao());
@@ -51,8 +62,22 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         textairportTagValue.setText(Airport.getAirportTag());
         latitude=Double.parseDouble(Airport.getLatitude());
         longitude=Double.parseDouble(Airport.getLongitude());
-        markerName = Airport.getAirportName();
+        textrawSNOWTAMValue.setText(Airport.getRawSnowtam());
+
     }
+
+    void moveMarker(double newlatitude,double newlongitude)
+    {
+        mMap.clear();
+        LatLng NewPoint = new LatLng(newlatitude,newlongitude);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(NewPoint, 10));
+
+       MarkerOptions options = new MarkerOptions()
+                    .position(NewPoint)
+                    .title("cnul");
+        mMap.addMarker(options);
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +122,6 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         Button btnAirportFour = findViewById(R.id.btnAirportFour);
 
 
-
         btnAirportOne.setVisibility(ConstraintLayout.GONE);
         btnAirportTwo.setVisibility(ConstraintLayout.GONE);
         btnAirportThree.setVisibility(ConstraintLayout.GONE);
@@ -132,7 +156,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         /*selection du premier ICAO*/
         AirportOneData = allFieldData.get(0);
         DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                textStateNameValue,textairportTagValue);
+                textStateNameValue,textairportTagValue,textrawSNOWTAMValue);
         ButtonOnScreen(AirportOneData, btnAirportOne);
 
         if(allFieldData.size() >= 2 )
@@ -154,28 +178,96 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnAirportOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue);
+
+                mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+                btnOnMap.setText(R.string.SeeOnMap);
+
+                textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportName.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCode.setVisibility(ConstraintLayout.VISIBLE);
+                textStateName.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamID.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTag.setVisibility(ConstraintLayout.VISIBLE);
+
+                textrawSNOWTAMValue.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCodeValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamIDValue.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTagValue.setVisibility(ConstraintLayout.VISIBLE);
             }
         });
 
         btnAirportTwo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportTwoData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue);
+
+                mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+                btnOnMap.setText(R.string.SeeOnMap);
+
+                textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportName.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCode.setVisibility(ConstraintLayout.VISIBLE);
+                textStateName.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamID.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTag.setVisibility(ConstraintLayout.VISIBLE);
+
+                textrawSNOWTAMValue.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCodeValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamIDValue.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTagValue.setVisibility(ConstraintLayout.VISIBLE);
             }
         });
 
         btnAirportThree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportThreeData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue);
+
+                mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+                btnOnMap.setText(R.string.SeeOnMap);
+
+                textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportName.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCode.setVisibility(ConstraintLayout.VISIBLE);
+                textStateName.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamID.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTag.setVisibility(ConstraintLayout.VISIBLE);
+
+                textrawSNOWTAMValue.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCodeValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamIDValue.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTagValue.setVisibility(ConstraintLayout.VISIBLE);
             }
         });
 
         btnAirportFour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportFourData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue);
+
+                mapFragment.getView().setVisibility(ConstraintLayout.GONE);
+                btnOnMap.setText(R.string.SeeOnMap);
+
+                textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportName.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCode.setVisibility(ConstraintLayout.VISIBLE);
+                textStateName.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamID.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTag.setVisibility(ConstraintLayout.VISIBLE);
+
+                textrawSNOWTAMValue.setVisibility(ConstraintLayout.VISIBLE);
+                textAirportNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateCodeValue.setVisibility(ConstraintLayout.VISIBLE);
+                textStateNameValue.setVisibility(ConstraintLayout.VISIBLE);
+                textsnowtamIDValue.setVisibility(ConstraintLayout.VISIBLE);
+                textairportTagValue.setVisibility(ConstraintLayout.VISIBLE);
             }
         });
 
@@ -201,6 +293,9 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
 
                 if (mapFragment.getView().getVisibility() == ConstraintLayout.GONE) {
                     mapFragment.getView().setVisibility(ConstraintLayout.VISIBLE);
+
+                    moveMarker(latitude,longitude);
+
                     btnOnMap.setText(R.string.BackToData);
 
                     textrawSNOWTAM.setVisibility(ConstraintLayout.GONE);
@@ -238,18 +333,12 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
-        LatLng position = new LatLng(latitude, longitude);
-        mMap.addMarker(new MarkerOptions().position(position).title(markerName));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(position));
 
-    }
 
 }
+
+
 
 
 

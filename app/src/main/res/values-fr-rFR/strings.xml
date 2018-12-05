@@ -3,6 +3,8 @@
     <string name="app_name">Snowtam</string>
 
     <string name="app_title">SNOWTAM</string>
+    <string name="TextProgression">Progression Data</string>
+    <string name="ProgressionDone">Import fini</string>
 
     <string name="search">SEARCH</string>
     <string name="Home">HOME</string>
