@@ -16,8 +16,8 @@ public class SnowtamParser {
 
             if (stringLastCharacter(elements[i - 1]).equals("C")) {
                 RunwayData myRunway = new RunwayData();
-                if(stringLastCharacter(elements[i - 2]).equals("B")){
-                    myRunway.setObservationTime(stringWithoutLastCharacter(elements[i-1]));
+                if (stringLastCharacter(elements[i - 2]).equals("B")) {
+                    myRunway.setObservationTime(stringWithoutLastCharacter(elements[i - 1]));
                 }
                 myRunway.setRunWayDesignator(stringWithoutLastCharacter(elements[i]));
                 myFieldData.getAllRunwayData().add(myRunway);
@@ -25,14 +25,15 @@ public class SnowtamParser {
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("D")) {
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWLenght(stringWithoutLastCharacter(elements[i])+ "m");
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWLenght(stringWithoutLastCharacter(elements[i]));
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("E")) {
-                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidth(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", "")+ "m");
                 if (stringWithoutLastCharacter(elements[i]).contains("L") || stringWithoutLastCharacter(elements[i]).contains("R")) {
                     myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidthOffset(stringWithoutLastCharacter(elements[i]).replaceAll("[^A-Z]", ""));
                 }
+                myFieldData.getAllRunwayData().get(currentRunwayEdited).setClearedRWWidth(stringWithoutLastCharacter(elements[i]).replaceAll("[^0-9]", ""));
+
             }
 
             if (stringLastCharacter(elements[i - 1]).equals("F")) {
@@ -45,11 +46,10 @@ public class SnowtamParser {
             if (stringLastCharacter(elements[i - 1]).equals("G")) {
                 String[] subResponse = stringWithoutLastCharacter(elements[i]).split("/");
                 for (int j = 0; j < 3; j++) {
-                    if(subResponse[j].equals("XX")){
-                        myFieldData.getAllRunwayData().get(currentRunwayEdited).getAllRunwaySegmentData().get(j).setMeanDepthDepositThirdRW("Mean depth not measurable");
-                    }
-                    else{
-                        myFieldData.getAllRunwayData().get(currentRunwayEdited).getAllRunwaySegmentData().get(j).setMeanDepthDepositThirdRW(subResponse[j]+ "mm");
+                    if (subResponse[j].equals("XX")) {
+                        myFieldData.getAllRunwayData().get(currentRunwayEdited).getAllRunwaySegmentData().get(j).setMeanDepthDepositThirdRW("not measurable");
+                    } else {
+                        myFieldData.getAllRunwayData().get(currentRunwayEdited).getAllRunwaySegmentData().get(j).setMeanDepthDepositThirdRW(subResponse[j] + "mm");
                     }
                 }
             }
@@ -175,14 +175,59 @@ public class SnowtamParser {
     }
 
 
-    static public String stringLastCharacter(String myString){
-        String bit = myString.substring(myString.length()-1);
+    static public String stringLastCharacter(String myString) {
+        String bit = myString.substring(myString.length() - 1);
         return bit;
     }
 
-    static public String stringWithoutLastCharacter(String myString){
-        String bit = myString.substring(0, myString.length()-1).trim();
+    static public String stringWithoutLastCharacter(String myString) {
+        String bit = myString.substring(0, myString.length() - 1).trim();
         return bit;
     }
 
+    static public String convertCondition(char myChar) {
+        switch (myChar) {
+            case '0':
+                return "clear and dry";
+            case '1':
+                return "damp";
+            case '2':
+                return "wet or water patches";
+            case '3':
+                return "rime or frost covered";
+            case '4':
+                return "dry snow";
+            case '5':
+                return "wet snow";
+            case '6':
+                return "slush";
+            case '7':
+                return "ice";
+            case '8':
+                return "compacted or rolled snow";
+            case '9':
+                return "frozen ruts or ridges";
+            default:
+                return "that's a bug...";
+        }
+    }
+    static public String convertFriction(String myString) {
+        Integer value = Integer.parseInt(myString);
+        if(value > 40 || value == 5){
+            return "good";
+        }
+        if((value >= 36 && value <=39) || value == 4){
+            return "medium to good";
+        }
+        if((value >= 30 && value <=35) || value == 3){
+            return "medium";
+        }
+        if((value >= 26 && value <=29) || value == 2){
+            return "medium/mediocre";
+        }
+        if((value >= 10 && value <=25) || value == 1){
+            return "poor";
+        }
+        return "measure not reliable";
+    }
 }

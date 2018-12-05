@@ -23,16 +23,19 @@ public class RunwayData {
     }
 
     public void setRunWayDesignator(String runWayDesignator) {
+        if(runWayDesignator.equals("88")){
+            this.runWayDesignator = "All runways";
+        }
         String side = runWayDesignator.replaceAll("[^A-Z]", "");
         String designator = new String();
         if(side.equals("L")){
-            designator = SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " LEFT";
+            designator = "Runway " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " left";
         } else {
             if (side.equals("R")) {
-                designator = SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " RIGHT";
+                designator = "Runway " + SnowtamParser.stringWithoutLastCharacter(runWayDesignator) + " right";
             }
             else {
-                designator = runWayDesignator;
+                designator = "Runway " + runWayDesignator;
             }
         }
         this.runWayDesignator = designator;
@@ -43,7 +46,7 @@ public class RunwayData {
     }
 
     public void setClearedRWLenght(String clearedRWLenght) {
-        this.clearedRWLenght = clearedRWLenght;
+        this.clearedRWLenght = "Cleared runway length " + clearedRWLenght +"m";
     }
 
     public String getClearedRWWidth() {
@@ -51,7 +54,12 @@ public class RunwayData {
     }
 
     public void setClearedRWWidth(String clearedRWWidth) {
-        this.clearedRWWidth = clearedRWWidth;
+        if(this.getClearedRWWidthOffset().equals(null)){
+            this.clearedRWWidth = "Cleared runway width " + clearedRWWidth + " center";
+        } else {
+            this.clearedRWWidth = "Cleared runway width " + clearedRWWidth + " " + this.getClearedRWWidthOffset();
+        }
+
     }
 
     public String getFrictionMeasurementDevice() {
@@ -119,7 +127,14 @@ public class RunwayData {
     }
 
     public void setClearedRWWidthOffset(String clearedRWWidthOffset) {
-        this.clearedRWWidthOffset = clearedRWWidthOffset;
+        String side = clearedRWWidthOffset.replaceAll("[^A-Z]", "");
+        if(side.equals("L")){
+            this.clearedRWWidthOffset = "left";
+        } else {
+            if (side.equals("R")) {
+                this.clearedRWWidthOffset = "right";
+            }
+        }
     }
 
     public String getFurtherClearanceLenght() {
@@ -224,7 +239,7 @@ public class RunwayData {
 
     private String runWayDesignator = null;                                                          // C)
 
-    private String clearedRWLenght = null;  //"TOTAL"                                               // D)
+    private String clearedRWLenght = "All runway" ;                                                 // D)
 
     private String clearedRWWidth = null; //"TOTAL"                                                // E)
     //TODO gérer le L/R LR
