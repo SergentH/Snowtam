@@ -19,11 +19,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.main_activity);
 
         ArrayList<FieldData> myData = dummyFakeTestBrowser();
-        System.out.println(myData.get(0).getAllRunwayData().get(0).getSegmentCondition());
-        System.out.println(myData.get(0).getAllRunwayData().get(0).getSegmentMeanDepth());
-        System.out.println(myData.get(0).getAllRunwayData().get(0).getSegmentFriction());
         System.out.println("Pour mettre un breakpoint et vérifier");
-
     }
 
     public ArrayList<FieldData>  dummyTestBrowser(){

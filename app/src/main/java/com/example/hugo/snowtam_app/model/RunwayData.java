@@ -17,7 +17,6 @@ public class RunwayData {
     }
 
 
-
     public String getRunWayDesignator() {
         return runWayDesignator;
     }
