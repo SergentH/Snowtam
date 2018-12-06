@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
 
-        ArrayList<FieldData> myData = dummyFakeTestBrowser();
+        ArrayList<FieldData> myData = dummyTestBrowser();
         System.out.println("Pour mettre un breakpoint et vérifier");
     }
 
@@ -29,10 +29,4 @@ public class MainActivity extends AppCompatActivity {
         return myData;
     }
 
-    public ArrayList<FieldData>  dummyFakeTestBrowser(){
-        String ICAOList = new String("ENBR ENGM");
-        Intent myIntent = new Intent();
-        ArrayList<FieldData> myData = Browser.fakeBrowse(ICAOList, getApplicationContext(), myIntent);
-        return myData;
-    }
 }
