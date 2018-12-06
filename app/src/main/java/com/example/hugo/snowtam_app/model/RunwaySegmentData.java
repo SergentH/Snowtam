@@ -1,6 +1,9 @@
 package com.example.hugo.snowtam_app.model;
 
-public class RunwaySegmentData {
+import java.io.Serializable;
+
+
+public class RunwaySegmentData implements Serializable {
     private String depositOverThirdRW;          // F)
     private String meanDepthDepositThirdRW;     // G)
     private String frictionMeasurement;         // H)
@@ -10,7 +13,15 @@ public class RunwaySegmentData {
     }
 
     public void setDepositOverThirdRW(String depositOverThirdRW) {
-        this.depositOverThirdRW = depositOverThirdRW;
+        String fullData = "Condition : ";
+        for(int i =0; i < depositOverThirdRW.length(); i++){
+            if(i != 0){
+                fullData = fullData + " over ";
+            }
+            fullData = fullData + SnowtamParser.convertCondition(depositOverThirdRW.charAt(i));
+        }
+        this.depositOverThirdRW = fullData;
+
     }
 
     public String getMeanDepthDepositThirdRW() {
@@ -18,7 +29,8 @@ public class RunwaySegmentData {
     }
 
     public void setMeanDepthDepositThirdRW(String meanDepthDepositThirdRW) {
-        this.meanDepthDepositThirdRW = meanDepthDepositThirdRW;
+        String fullData = "Mean depth : ";
+        this.meanDepthDepositThirdRW = fullData + meanDepthDepositThirdRW;
     }
 
     public String getFrictionMeasurement() {
@@ -26,6 +38,6 @@ public class RunwaySegmentData {
     }
 
     public void setFrictionMeasurement(String frictionMeasurement) {
-        this.frictionMeasurement = frictionMeasurement;
+        this.frictionMeasurement = "Friction : " + SnowtamParser.convertFriction(frictionMeasurement);
     }
 }

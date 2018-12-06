@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class AirfieldRequestService {
     public static void sendAirfieldRequest(ArrayList<FieldData> allFieldData){
-
         for(int i = 0; i< allFieldData.size();i++){
             Document requestFeedback = null;
             try {
@@ -30,4 +29,18 @@ public class AirfieldRequestService {
         }
 
     }
+
+    public static void threadSendAirfieldRequest(final ArrayList<FieldData> allFieldData){
+
+        Thread t = new Thread(new Runnable(){
+
+            @Override
+            public void run() {
+                sendAirfieldRequest(allFieldData);
+            }
+        });
+
+        t.start();
+    }
+
 }

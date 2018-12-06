@@ -10,12 +10,15 @@
     <string name="Help">HELP</string>
     <string name="SeeOnMap">See On Map</string>
     <string name="BackToData">Back To Data</string>
+    <string name="Decode">Decode</string>
+    <string name="Raw">Raw</string>
     <string name="LoadingData">Loading Data</string>
 
     <string name="ICAO">ICAO</string>
     <string name="latitude">Lat</string>
     <string name="longitude">Long</string>
     <string name="rawSNOWTAM">raw Snowtam</string>
+    <string name="decodeSNOWTAM">decoded Snowtam</string>
     <string name="AirportName">Airport name</string>
     <string name="StateCode">State code</string>
     <string name="snowtamID">snowtam ID</string>

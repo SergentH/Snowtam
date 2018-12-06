@@ -2,14 +2,12 @@ package com.example.hugo.snowtam_app.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,17 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
 import com.example.hugo.snowtam_app.R;
 import com.example.hugo.snowtam_app.controller.main.MainFragment;
 import com.example.hugo.snowtam_app.controller.main.ResultActivity;
-import com.example.hugo.snowtam_app.model.AirfieldRequestService;
+import com.example.hugo.snowtam_app.model.Browser;
 import com.example.hugo.snowtam_app.model.FieldData;
+import com.example.hugo.snowtam_app.model.RunwayData;
 import com.example.hugo.snowtam_app.model.SnowtamParser;
 
 import org.json.JSONArray;
@@ -38,11 +35,16 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context mContext;
     ProgressBar mProgressBar;
     TextView ProgressionData;
 
@@ -94,6 +96,9 @@ public class MainActivity extends AppCompatActivity {
                     .commitNow();
         }
 
+        // Get the application context
+        mContext = getApplicationContext();
+
         /*lien avec des differents elements graphiques*/
         Button b = findViewById(R.id.buttonSearch);
         final EditText AirportOne = findViewById(R.id.editAeOne);
@@ -126,6 +131,9 @@ public class MainActivity extends AppCompatActivity {
         AirportThree.setHint(R.string.ICAO);
         AirportFour.setHint(R.string.ICAO);
 
+        //********************************************************************************
+        AirportOne.setHint("ENBR");
+        AirportTwo.setHint("ENGM");
 
         /*code pour entrer les oaci des aeroports*/
         AirportOne.addTextChangedListener(new TextWatcher() {
@@ -219,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
                         ICAOList = ICAOList.concat(AirportFour.getText().toString().toUpperCase());
                     }
 
-                    //ENBR ENBO ENGM ENZV
+                    //ENBR ENGM puis ENZV ENBO
                     ICAOList = ICAOList.trim();
                     System.out.println(ICAOList);
 
@@ -228,6 +236,9 @@ public class MainActivity extends AppCompatActivity {
                         FieldData newField = new FieldData(aICAOtable);
                         EveryFieldData.add(newField);
                     }
+
+                    dummyFakeTestBrowser();
+
 
                     Thread t = new Thread(new Runnable(){
 
@@ -241,49 +252,7 @@ public class MainActivity extends AppCompatActivity {
                     t.start();
 
                     String stringURL = createRequestURL();
-
                     System.out.println(stringURL);
-
-                    RequestQueue myQueue = Volley.newRequestQueue(getApplicationContext());
-
-                    Response.Listener<JSONArray> responseListener = new Response.Listener<JSONArray>() {
-                        @Override
-                        public void onResponse(JSONArray response) {
-                            try
-                            {
-                                for (int i = 0; i < EveryFieldData.size(); i++) {
-                                    for (int j = 0; j < response.length(); j++) {
-                                        JSONObject currentNOTAM = response.getJSONObject(j);
-                                        if (currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(EveryFieldData.get(i).getIcao())) {
-                                            EveryFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
-                                            EveryFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
-                                            EveryFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
-                                            EveryFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
-                                            SnowtamParser.parseSnowtam(EveryFieldData.get(i));
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                            catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            //TODO ICI HUGO POUR L'APPEL D'INTENT
-
-                            System.out.println("Juste un endroit où faire un breakpoint pour Debug");
-                        }
-                    };
-
-                    Response.ErrorListener errorListener = new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            error.printStackTrace();
-                        }
-                    };
-
-                    JsonArrayRequest myRequest = new JsonArrayRequest(stringURL,responseListener,errorListener);
-
-                    myQueue.add(myRequest);
 
                     try {
                         t.join();
@@ -291,8 +260,64 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    /*Recupération du snowtam mais bugué, n'arrive pas a recuperer l'array*/
+ /*                   System.out.println("RequestFuture");
+                    RequestFuture<JSONArray> future = RequestFuture.newFuture();
+                    System.out.println("myRequest");
+                    JsonArrayRequest myRequest = new JsonArrayRequest(stringURL,future, future);
+                    System.out.println("newRequestQueue");
+                    RequestQueue myQueue = Volley.newRequestQueue(mContext);
+                    System.out.println("myRequest");
+                    myQueue.add(myRequest);
+
+                    JSONArray response = new JSONArray();
+                    try {
+                        System.out.println("wait response");
+                        response = future.get(5, TimeUnit.SECONDS); // this will block
+
+                    } catch (InterruptedException e) {
+                        // exception handling
+                    } catch (ExecutionException e) {
+                        // exception handling
+                    } catch (TimeoutException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    try {
+                        for (int i = 0; i < EveryFieldData.size(); i++) {
+                            for (int j = 0; j < response.length(); j++) {
+                                JSONObject currentNOTAM = response.getJSONObject(j);
+                                if (currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(EveryFieldData.get(i).getIcao())) {
+                                    EveryFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
+                                    EveryFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
+                                    EveryFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
+                                    EveryFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
+                                    SnowtamParser.parseSnowtam(EveryFieldData.get(i));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+*/
+
+                    ArrayList<RunwayData> allRunwayDataENBR = new ArrayList<>(EveryFieldData.get(0).getAllRunwayData());
+                    ArrayList<RunwayData> allRunwayDataENGM = new ArrayList<>(EveryFieldData.get(0).getAllRunwayData());
+
+                    allRunwayDataENBR.get(0).getAllRunwaySegmentData().clear();
+                    allRunwayDataENGM.get(0).getAllRunwaySegmentData().clear();
+
+                    EveryFieldData.get(0).getAllRunwayData().clear();
+                    EveryFieldData.get(1).getAllRunwayData().clear();
+
                     Intent ICAOtoSend = new Intent(MainActivity.this, ResultActivity.class);
-                    ICAOtoSend.putExtra("Data", EveryFieldData);
+
+                    ICAOtoSend.putExtra("DATA",(Serializable)EveryFieldData);
+                    ICAOtoSend.putExtra("allRunwayDataENBR",(Serializable)allRunwayDataENBR);
+                    ICAOtoSend.putExtra("allRunwayDataENGM",(Serializable)allRunwayDataENGM);
                     startActivity(ICAOtoSend);
                 }
             }
@@ -338,5 +363,11 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         return fullURL;
+    }
+
+    void dummyFakeTestBrowser(){
+        String ICAOList = new String("ENBR ENGM");
+        Intent myIntent = new Intent();
+        EveryFieldData = Browser.fakeBrowse(ICAOList, getApplicationContext(), myIntent);
     }
 }

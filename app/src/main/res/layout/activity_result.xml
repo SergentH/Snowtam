@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textrawSNOWTAM"
+        app:layout_constraintTop_toBottomOf="@+id/textrawSNOWTAMValue"
         tools:text="Airport name" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textAirportName"
         app:layout_constraintTop_toBottomOf="@+id/textrawSNOWTAMValue"
@@ -35,11 +35,11 @@
         android:id="@+id/textStateCode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textAirportName"
+        app:layout_constraintTop_toBottomOf="@+id/textAirportNameValue"
         tools:text="State code" />
 
     <TextView
@@ -49,7 +49,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textStateCode"
         app:layout_constraintTop_toBottomOf="@+id/textAirportNameValue"
@@ -61,9 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStateCode"
+        app:layout_constraintTop_toBottomOf="@+id/textStateCodeValue"
         tools:text="State name" />
 
     <TextView
@@ -73,7 +73,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textStateName"
         app:layout_constraintTop_toBottomOf="@+id/textStateCodeValue"
@@ -85,9 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textStateName"
+        app:layout_constraintTop_toBottomOf="@+id/textStateNameValue"
         tools:text="snowtam ID" />
 
     <TextView
@@ -97,8 +97,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toEndOf="@+id/textsnowtamID"
         app:layout_constraintTop_toBottomOf="@+id/textStateNameValue"
         tools:text="snowtam ID" />
@@ -109,9 +110,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textsnowtamID"
+        app:layout_constraintTop_toBottomOf="@+id/textsnowtamIDValue"
         tools:text="Airport Tag" />
 
     <TextView
@@ -121,8 +122,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toEndOf="@+id/textairportTag"
         app:layout_constraintTop_toBottomOf="@+id/textsnowtamIDValue"
         tools:text="Airport Tag" />
@@ -130,11 +132,13 @@
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="363dp"
-        android:layout_height="295dp"
+        android:layout_width="365dp"
+        android:layout_height="266dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAirportOne"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonOnMap"
@@ -206,27 +210,13 @@
         android:id="@+id/textTitle"
         android:layout_width="123dp"
         android:layout_height="34dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:textSize="24sp"
-        app:layout_constraintEnd_toStartOf="@+id/buttonHelp"
         app:layout_constraintStart_toEndOf="@+id/buttonHome"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="snowtam" />
-
-    <Button
-        android:id="@+id/buttonHelp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textTitle"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="help" />
 
     <TextView
         android:id="@+id/textICAO"
@@ -297,9 +287,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnDecode"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textICAO"
+        app:layout_constraintTop_toBottomOf="@+id/textLongValue"
         tools:text="See on map" />
 
     <TextView
@@ -308,7 +300,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonOnMap"
         tools:text="rawSNOWTAM" />
@@ -319,10 +311,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="18sp"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textrawSNOWTAM"
         app:layout_constraintTop_toBottomOf="@+id/buttonOnMap"
         tools:text="rawSNOWTAM" />
+
+    <Button
+        android:id="@+id/btnDecode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonOnMap"
+        app:layout_constraintTop_toBottomOf="@+id/textLongValue"
+        tools:text="Decode" />
 
 </android.support.constraint.ConstraintLayout>
