@@ -54,7 +54,7 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
     }
 
     void DataOnScreen(FieldData Airport, TextView textLatValue,TextView textLongValue,TextView textICAO,TextView textAirportNameValue,TextView textStateCodeValue,
-                      TextView textStateNameValue,TextView textairportTagValue, TextView textrawSNOWTAMValue, Button btnDecode) {
+                      TextView textStateNameValue,TextView textairportTagValue, TextView textrawSNOWTAMValue, TextView textsnowtamIDValue, Button btnDecode, TextView textrawSNOWTAM ) {
         textLatValue.setText(Airport.getLatitude());
         textLongValue.setText(Airport.getLongitude());
         textICAO.setText(Airport.getIcao());
@@ -65,8 +65,10 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         latitude=Double.parseDouble(Airport.getLatitude());
         longitude=Double.parseDouble(Airport.getLongitude());
         textrawSNOWTAMValue.setText(Airport.getRawSnowtam());
+        textsnowtamIDValue.setText(Airport.getSnowtamID());
 
         btnDecode.setText(R.string.Decode);
+        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
     }
 
     void moveMarker(double newlatitude,double newlongitude)
@@ -157,13 +159,13 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         final ArrayList<FieldData> allFieldData = (ArrayList<FieldData>) intent.getSerializableExtra("DATA");
         ArrayList<RunwayData> allRunwayDataENBR=(ArrayList<RunwayData>)intent.getSerializableExtra("allRunwayDataENBR");
         ArrayList<RunwayData> allRunwayDataENGM=(ArrayList<RunwayData>)intent.getSerializableExtra("allRunwayDataENGM");
-
+        ArrayList<RunwayData> allRunwayDataENBO=(ArrayList<RunwayData>)intent.getSerializableExtra("allRunwayDataENBO");
 
         /*selection du premier ICAO*/
         AirportOneData = allFieldData.get(0);
         AirportOneData.setAllRunwayData(allRunwayDataENBR);
         DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                textStateNameValue,textairportTagValue,textrawSNOWTAMValue,btnDecode);
+                textStateNameValue,textairportTagValue,textrawSNOWTAMValue,textsnowtamIDValue,btnDecode,textrawSNOWTAM);
         ButtonOnScreen(AirportOneData, btnAirportOne);
 
         if(allFieldData.size() >= 2 )
@@ -175,10 +177,12 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         if(allFieldData.size() >= 3 )
         {
             AirportThreeData = allFieldData.get(2);
+            AirportThreeData.setAllRunwayData(allRunwayDataENBO);
             ButtonOnScreen(AirportThreeData, btnAirportThree);
         }
         if(allFieldData.size() >= 4 ) {
             AirportFourData = allFieldData.get(3);
+            AirportFourData.setAllRunwayData(allRunwayDataENBO);
             ButtonOnScreen(AirportFourData, btnAirportFour);
         }
 
@@ -186,10 +190,11 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnAirportOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportOneData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,btnDecode);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,textsnowtamIDValue,btnDecode,textrawSNOWTAM);
 
                 mapFragment.getView().setVisibility(ConstraintLayout.GONE);
                 btnOnMap.setText(R.string.SeeOnMap);
+                btnDecode.setVisibility(View.VISIBLE);
 
                 textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
                 textAirportName.setVisibility(ConstraintLayout.VISIBLE);
@@ -210,10 +215,11 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnAirportTwo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportTwoData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,btnDecode);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,textsnowtamIDValue,btnDecode,textrawSNOWTAM);
 
                 mapFragment.getView().setVisibility(ConstraintLayout.GONE);
                 btnOnMap.setText(R.string.SeeOnMap);
+                btnDecode.setVisibility(View.VISIBLE);
 
                 textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
                 textAirportName.setVisibility(ConstraintLayout.VISIBLE);
@@ -234,10 +240,11 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnAirportThree.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportThreeData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,btnDecode);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,textsnowtamIDValue,btnDecode,textrawSNOWTAM);
 
                 mapFragment.getView().setVisibility(ConstraintLayout.GONE);
                 btnOnMap.setText(R.string.SeeOnMap);
+                btnDecode.setVisibility(View.VISIBLE);
 
                 textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
                 textAirportName.setVisibility(ConstraintLayout.VISIBLE);
@@ -258,10 +265,11 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         btnAirportFour.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 DataOnScreen(AirportFourData, textLatValue,textLongValue,textICAO,textAirportNameValue,textStateCodeValue,
-                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,btnDecode);
+                        textStateNameValue,textairportTagValue,textrawSNOWTAMValue,textsnowtamIDValue,btnDecode,textrawSNOWTAM);
 
                 mapFragment.getView().setVisibility(ConstraintLayout.GONE);
                 btnOnMap.setText(R.string.SeeOnMap);
+                btnDecode.setVisibility(View.VISIBLE);
 
                 textrawSNOWTAM.setVisibility(ConstraintLayout.VISIBLE);
                 textAirportName.setVisibility(ConstraintLayout.VISIBLE);
@@ -286,7 +294,6 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
             }
         });
 
-
         btnDecode.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
@@ -295,17 +302,23 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                     if(btnDecode.getText().toString().equals(getString(R.string.Decode)))
                     {
                         btnDecode.setText(R.string.Raw);
-                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
+                        textrawSNOWTAM.setText(R.string.decodeSNOWTAM);
                         String data = "B) "+AirportOneData.getAllRunwayData().get(0).getObservationTime()+
                                 "\nC) "+AirportOneData.getAllRunwayData().get(0).getRunWayDesignator()+
                                 "\nD) "+AirportOneData.getAllRunwayData().get(0).getClearedRWLenght()+
-                                "\nF) "+AirportOneData.getAllRunwayData().get(0).getTaxiWayRAW()+
-                                "\nR) "+AirportOneData.getAllRunwayData().get(0).getApronRAW();
+                                "\nF) "+AirportOneData.getAllRunwayData().get(0).getSegmentCondition()+
+                                "\nG) "+AirportOneData.getAllRunwayData().get(0).getSegmentMeanDepth()+
+                                "\nH) "+AirportOneData.getAllRunwayData().get(0).getSegmentFriction()+
+                                "\nJ) "+AirportOneData.getAllRunwayData().get(0).getCriticalSnowbank()+
+                                "\nN) "+AirportOneData.getAllRunwayData().get(0).getTaxiWayRAW()+
+                                "\nR) "+AirportOneData.getAllRunwayData().get(0).getApronRAW()+
+                                "\nT) "+AirportOneData.getRemark();
                         textrawSNOWTAMValue.setText(data);
 
                     }else if (btnDecode.getText().toString().equals(getString(R.string.Raw)))
                     {
                         btnDecode.setText(R.string.Decode);
+                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
                         String data = AirportOneData.getRawSnowtam();
                         textrawSNOWTAMValue.setText(data);
                     }
@@ -316,17 +329,23 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                     if(btnDecode.getText().toString().equals(getString(R.string.Decode)))
                     {
                         btnDecode.setText(R.string.Raw);
-                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
+                        textrawSNOWTAM.setText(R.string.decodeSNOWTAM);
                         String data = "B) "+AirportTwoData.getAllRunwayData().get(0).getObservationTime()+
                                 "\nC) "+AirportTwoData.getAllRunwayData().get(0).getRunWayDesignator()+
                                 "\nD) "+AirportTwoData.getAllRunwayData().get(0).getClearedRWLenght()+
-                                "\nF) "+AirportTwoData.getAllRunwayData().get(0).getTaxiWayRAW()+
-                                "\nR) "+AirportTwoData.getAllRunwayData().get(0).getApronRAW();
+                                "\nF) "+AirportTwoData.getAllRunwayData().get(0).getSegmentCondition()+
+                                "\nG) "+AirportTwoData.getAllRunwayData().get(0).getSegmentMeanDepth()+
+                                "\nH) "+AirportTwoData.getAllRunwayData().get(0).getSegmentFriction()+
+                                "\nJ) "+AirportTwoData.getAllRunwayData().get(0).getCriticalSnowbank()+
+                                "\nN) "+AirportTwoData.getAllRunwayData().get(0).getTaxiWayRAW()+
+                                "\nR) "+AirportTwoData.getAllRunwayData().get(0).getApronRAW()+
+                                "\nT) "+AirportTwoData.getRemark();
                         textrawSNOWTAMValue.setText(data);
 
                     }else if (btnDecode.getText().toString().equals(getString(R.string.Raw)))
                     {
                         btnDecode.setText(R.string.Decode);
+                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
                         String data = AirportTwoData.getRawSnowtam();
                         textrawSNOWTAMValue.setText(data);
                     }
@@ -337,17 +356,23 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                     if(btnDecode.getText().toString().equals(getString(R.string.Decode)))
                     {
                         btnDecode.setText(R.string.Raw);
-                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
+                        textrawSNOWTAM.setText(R.string.decodeSNOWTAM);
                         String data = "B) "+AirportThreeData.getAllRunwayData().get(0).getObservationTime()+
                                 "\nC) "+AirportThreeData.getAllRunwayData().get(0).getRunWayDesignator()+
                                 "\nD) "+AirportThreeData.getAllRunwayData().get(0).getClearedRWLenght()+
-                                "\nF) "+AirportThreeData.getAllRunwayData().get(0).getTaxiWayRAW()+
-                                "\nR) "+AirportThreeData.getAllRunwayData().get(0).getApronRAW();
+                                "\nF) "+AirportThreeData.getAllRunwayData().get(0).getSegmentCondition()+
+                                "\nG) "+AirportThreeData.getAllRunwayData().get(0).getSegmentMeanDepth()+
+                                "\nH) "+AirportThreeData.getAllRunwayData().get(0).getSegmentFriction()+
+                                "\nJ) "+AirportThreeData.getAllRunwayData().get(0).getCriticalSnowbank()+
+                                "\nN) "+AirportThreeData.getAllRunwayData().get(0).getTaxiWayRAW()+
+                                "\nR) "+AirportThreeData.getAllRunwayData().get(0).getApronRAW()+
+                                "\nT) "+AirportThreeData.getRemark();
                         textrawSNOWTAMValue.setText(data);
 
                     }else if (btnDecode.getText().toString().equals(getString(R.string.Raw)))
                     {
                         btnDecode.setText(R.string.Decode);
+                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
                         String data = AirportThreeData.getRawSnowtam();
                         textrawSNOWTAMValue.setText(data);
                     }
@@ -358,17 +383,23 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
                     if(btnDecode.getText().toString().equals(getString(R.string.Decode)))
                     {
                         btnDecode.setText(R.string.Raw);
-                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
+                        textrawSNOWTAM.setText(R.string.decodeSNOWTAM);
                         String data = "B) "+AirportFourData.getAllRunwayData().get(0).getObservationTime()+
                                 "\nC) "+AirportFourData.getAllRunwayData().get(0).getRunWayDesignator()+
                                 "\nD) "+AirportFourData.getAllRunwayData().get(0).getClearedRWLenght()+
-                                "\nF) "+AirportFourData.getAllRunwayData().get(0).getTaxiWayRAW()+
-                                "\nR) "+AirportFourData.getAllRunwayData().get(0).getApronRAW();
+                                "\nF) "+AirportFourData.getAllRunwayData().get(0).getSegmentCondition()+
+                                "\nG) "+AirportFourData.getAllRunwayData().get(0).getSegmentMeanDepth()+
+                                "\nH) "+AirportFourData.getAllRunwayData().get(0).getSegmentFriction()+
+                                "\nJ) "+AirportFourData.getAllRunwayData().get(0).getCriticalSnowbank()+
+                                "\nN) "+AirportFourData.getAllRunwayData().get(0).getTaxiWayRAW()+
+                                "\nR) "+AirportFourData.getAllRunwayData().get(0).getApronRAW()+
+                                "\nT) "+AirportFourData.getRemark();
                         textrawSNOWTAMValue.setText(data);
 
                     }else if (btnDecode.getText().toString().equals(getString(R.string.Raw)))
                     {
                         btnDecode.setText(R.string.Decode);
+                        textrawSNOWTAM.setText(R.string.rawSNOWTAM);
                         String data = AirportFourData.getRawSnowtam();
                         textrawSNOWTAMValue.setText(data);
                     }
@@ -382,7 +413,6 @@ public class ResultActivity extends AppCompatActivity implements OnMapReadyCallb
         /*Utilisation du bouton On Map*/
         btnOnMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
 
                 if (mapFragment.getView().getVisibility() == ConstraintLayout.GONE) {
                     mapFragment.getView().setVisibility(ConstraintLayout.VISIBLE);

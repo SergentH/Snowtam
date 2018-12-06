@@ -37,6 +37,7 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -131,9 +132,11 @@ public class MainActivity extends AppCompatActivity {
         AirportThree.setHint(R.string.ICAO);
         AirportFour.setHint(R.string.ICAO);
 
-        //********************************************************************************
+        //*****************POUR DEBUG***************************************************************
         AirportOne.setHint("ENBR");
         AirportTwo.setHint("ENGM");
+        AirportThree.setHint("ENBO");
+
 
         /*code pour entrer les oaci des aeroports*/
         AirportOne.addTextChangedListener(new TextWatcher() {
@@ -261,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     /*Recupération du snowtam mais bugué, n'arrive pas a recuperer l'array*/
- /*                   System.out.println("RequestFuture");
+ /*                 System.out.println("RequestFuture");
                     RequestFuture<JSONArray> future = RequestFuture.newFuture();
                     System.out.println("myRequest");
                     JsonArrayRequest myRequest = new JsonArrayRequest(stringURL,future, future);
@@ -282,7 +285,6 @@ public class MainActivity extends AppCompatActivity {
                     } catch (TimeoutException e) {
                         e.printStackTrace();
                     }
-
 
                     try {
                         for (int i = 0; i < EveryFieldData.size(); i++) {
@@ -305,19 +307,21 @@ public class MainActivity extends AppCompatActivity {
 */
 
                     ArrayList<RunwayData> allRunwayDataENBR = new ArrayList<>(EveryFieldData.get(0).getAllRunwayData());
-                    ArrayList<RunwayData> allRunwayDataENGM = new ArrayList<>(EveryFieldData.get(0).getAllRunwayData());
-
-                    allRunwayDataENBR.get(0).getAllRunwaySegmentData().clear();
-                    allRunwayDataENGM.get(0).getAllRunwaySegmentData().clear();
+                    ArrayList<RunwayData> allRunwayDataENGM = new ArrayList<>(EveryFieldData.get(1).getAllRunwayData());
+                    ArrayList<RunwayData> allRunwayDataENBO = new ArrayList<>(EveryFieldData.get(2).getAllRunwayData());
 
                     EveryFieldData.get(0).getAllRunwayData().clear();
                     EveryFieldData.get(1).getAllRunwayData().clear();
+                    EveryFieldData.get(2).getAllRunwayData().clear();
+                    //EveryFieldData.get(3).getAllRunwayData().clear();
 
                     Intent ICAOtoSend = new Intent(MainActivity.this, ResultActivity.class);
 
                     ICAOtoSend.putExtra("DATA",(Serializable)EveryFieldData);
                     ICAOtoSend.putExtra("allRunwayDataENBR",(Serializable)allRunwayDataENBR);
                     ICAOtoSend.putExtra("allRunwayDataENGM",(Serializable)allRunwayDataENGM);
+                    ICAOtoSend.putExtra("allRunwayDataENBO",(Serializable)allRunwayDataENBO);
+
                     startActivity(ICAOtoSend);
                 }
             }
@@ -366,7 +370,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void dummyFakeTestBrowser(){
-        String ICAOList = new String("ENBR ENGM");
+        String ICAOList = new String("ENBR ENGM ENBO");
         Intent myIntent = new Intent();
         EveryFieldData = Browser.fakeBrowse(ICAOList, getApplicationContext(), myIntent);
     }

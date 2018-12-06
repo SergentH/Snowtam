@@ -33,8 +33,8 @@
 
         <TextView
             android:id="@+id/textAirportOne"
-            android:layout_width="82dp"
-            android:layout_height="29dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="143dp"
             android:textSize="18sp"
@@ -44,8 +44,8 @@
 
         <TextView
             android:id="@+id/textAirportTwo"
-            android:layout_width="82dp"
-            android:layout_height="29dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="44dp"
             android:textSize="18sp"
@@ -55,8 +55,8 @@
 
         <TextView
             android:id="@+id/textAirportThree"
-            android:layout_width="82dp"
-            android:layout_height="29dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="44dp"
             android:textSize="18sp"
@@ -66,8 +66,8 @@
 
         <TextView
             android:id="@+id/textAirportFour"
-            android:layout_width="82dp"
-            android:layout_height="29dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="28dp"
             android:layout_marginTop="44dp"
             android:textSize="18sp"
