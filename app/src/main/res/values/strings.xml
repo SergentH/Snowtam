@@ -13,6 +13,7 @@
     <string name="Decode">Decode</string>
     <string name="Raw">Raw</string>
     <string name="LoadingData">Loading Data</string>
+    <string name="noSnowtam">No snowtam</string>
 
     <string name="ICAO">ICAO</string>
     <string name="latitude">Lat</string>

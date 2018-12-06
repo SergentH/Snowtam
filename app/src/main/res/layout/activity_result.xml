@@ -133,7 +133,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="365dp"
-        android:layout_height="311dp"
+        android:layout_height="376dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -151,16 +151,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/textTitle"
+        android:layout_marginTop="4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textLongValue"
         tools:text="Home" />
 
     <Button
         android:id="@+id/btnAirportOne"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -172,7 +170,7 @@
 
     <Button
         android:id="@+id/btnAirportTwo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -184,7 +182,7 @@
 
     <Button
         android:id="@+id/btnAirportThree"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -196,7 +194,7 @@
 
     <Button
         android:id="@+id/btnAirportFour"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -209,90 +207,74 @@
         tools:text="4" />
 
     <TextView
-        android:id="@+id/textTitle"
-        android:layout_width="123dp"
-        android:layout_height="34dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:textAlignment="center"
-        android:textSize="24sp"
-        app:layout_constraintStart_toEndOf="@+id/buttonHome"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="snowtam" />
-
-    <TextView
         android:id="@+id/textICAO"
         android:layout_width="47dp"
         android:layout_height="27dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="4dp"
-        android:textSize="14sp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="ICAO" />
 
     <TextView
         android:id="@+id/textLat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/textLatValue"
-        app:layout_constraintStart_toEndOf="@+id/textICAO"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textICAO"
         tools:text="Lat" />
 
     <TextView
         android:id="@+id/textLong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="139dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toStartOf="@+id/textLongValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textLat"
+        app:layout_constraintStart_toEndOf="@+id/textLatValue"
+        app:layout_constraintTop_toBottomOf="@+id/textICAO"
         tools:text="Long" />
 
     <TextView
         android:id="@+id/textLatValue"
-        android:layout_width="205dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
         android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textLat"
-        app:layout_constraintTop_toBottomOf="@+id/buttonHome"
+        app:layout_constraintTop_toBottomOf="@+id/textICAO"
         tools:text="value" />
 
     <TextView
         android:id="@+id/textLongValue"
-        android:layout_width="190dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textLong"
-        app:layout_constraintTop_toBottomOf="@+id/textLatValue"
+        app:layout_constraintTop_toBottomOf="@+id/textICAO"
         tools:text="value" />
 
     <Button
         android:id="@+id/buttonOnMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toStartOf="@+id/btnDecode"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonHome"
         app:layout_constraintTop_toBottomOf="@+id/textLongValue"
         tools:text="See on map" />
 
@@ -323,11 +305,9 @@
         android:id="@+id/btnDecode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/buttonOnMap"
         app:layout_constraintTop_toBottomOf="@+id/textLongValue"
         tools:text="Decode" />
 

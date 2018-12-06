@@ -41,6 +41,13 @@ public class AirfieldRequestService {
         });
 
         t.start();
+
+
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }

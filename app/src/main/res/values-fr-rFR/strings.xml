@@ -3,32 +3,33 @@
     <string name="app_name">Snowtam</string>
 
     <string name="app_title">SNOWTAM</string>
-    <string name="TextProgression">Progression Data</string>
+    <string name="TextProgression">Chargement en cours</string>
     <string name="ProgressionDone">Import fini</string>
 
     <string name="search">Rechercher</string>
     <string name="Home">RETOUR</string>
-    <string name="Help">HELP</string>
-    <string name="SeeOnMap">Voir sur Map</string>
-    <string name="BackToData">Retour donnees</string>
-    <string name="Decode">Decode</string>
-    <string name="Raw">Brut</string>
+    <string name="Help">AIDE</string>
+    <string name="SeeOnMap">Voir sur la carte</string>
+    <string name="BackToData">Retour aux informations</string>
+    <string name="Decode">Décoder</string>
+    <string name="Raw">Coder</string>
     <string name="LoadingData">Chargement</string>
+    <string name="noSnowtam">Pas de snowtam</string>
 
-    <string name="ICAO">ICAO</string>
+    <string name="ICAO">OACI</string>
     <string name="latitude">Lat</string>
     <string name="longitude">Long</string>
     <string name="rawSNOWTAM">Snowtam brut</string>
     <string name="decodeSNOWTAM">Snowtam décodé</string>
-    <string name="AirportName">Nom Aeroport</string>
-    <string name="StateCode">code Etat</string>
-    <string name="snowtamID">snowtam ID</string>
-    <string name="StateName">Nom etat</string>
-    <string name="AirportTag">Aeroport tag</string>
+    <string name="AirportName">Nom de l\'aéroport</string>
+    <string name="StateCode">Code pays</string>
+    <string name="snowtamID">ID Snowtam</string>
+    <string name="StateName">Pays</string>
+    <string name="AirportTag">Tag d\'aéroport</string>
 
 
-    <string name="airportone">Aeroport 1</string>
-    <string name="airporttwo">Aeroport 2</string>
-    <string name="airportthree">Aeroport 3</string>
-    <string name="airportfour">Aeroport 4</string>
+    <string name="airportone">Aéroport 1</string>
+    <string name="airporttwo">Aéroport  2</string>
+    <string name="airportthree">Aéroport 3</string>
+    <string name="airportfour">Aéroport  4</string>
 </resources>

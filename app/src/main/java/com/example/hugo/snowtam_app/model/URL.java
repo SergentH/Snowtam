@@ -16,10 +16,10 @@ import java.util.ArrayList;
 
 
 public class URL {
-    final String API_KEY = "52604a70-ec93-11e8-acf9-1d6bfa3c323d";
-    String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=" + API_KEY +"&format=json&type=&Qcode=&locations=";
-    String endURL = "&qstring=&states=&ICAOonly=";
-    String requestStringToParse = new String();
+    static final String API_KEY = "52604a70-ec93-11e8-acf9-1d6bfa3c323d";
+    static String basicURL = "https://v4p4sz5ijk.execute-api.us-east-1.amazonaws.com/anbdata/states/notams/notams-list?api_key=" + API_KEY +"&format=json&type=&Qcode=&locations=";
+    static String endURL = "&qstring=&states=&ICAOonly=";
+    static String requestStringToParse = new String();
 
     public String getRequestStringToParse() {
         return requestStringToParse;
@@ -29,7 +29,7 @@ public class URL {
         this.requestStringToParse = requestStringToParse;
     }
 
-    public String createRequestURL(ArrayList<FieldData> allFieldData) {
+    public static String createRequestURL(ArrayList<FieldData> allFieldData) {
 
         String fullURL = new String();
         //add check IACO size ????
@@ -53,77 +53,6 @@ public class URL {
                 break;
         }
         return fullURL;
-    }
-
-    /*public static Listener<JSONArray> createListener() {
-        Response.Listener<JSONArray> myListener = ;
-        return myListener;
-    }*/
-
-    /*public static ErrorListener createErrorListener() {
-        Response.ErrorListener myErrorListener = ;
-        return myErrorListener;
-    }*/
-
-    public JsonArrayRequest makeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData, Intent myIntent) {
-        JsonArrayRequest myRequest = new JsonArrayRequest(Method.GET, myRequestURL, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                JSONObject currentNOTAM = null;
-                for(int i = 0; i< allFieldData.size();i++){
-                    for(int j=0;j<response.length();j++){
-                        try {
-                            currentNOTAM = response.getJSONObject(j);
-                            if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(allFieldData.get(i).getIcao())){
-                                allFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
-                                allFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
-                                allFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
-                                allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
-                                SnowtamParser.parseSnowtam(allFieldData.get(i));
-                                break;
-                            }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-                //TODO ICI HUGO POUR L'APPEL D'INTENT
-                System.out.println("Juste un endroit où faire un breakpoint pour Debug");
-            }
-        }, new ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //
-                System.err.println("Erreur response : " + error);
-                error.printStackTrace();
-            }
-        });
-        return myRequest;
-    }
-
-    public void makeFakeRequest(String myRequestURL, final ArrayList<FieldData> allFieldData, Intent myIntent) throws JSONException {
-        JSONArray response = DummyRequester.getJsonArray();
-        JSONObject currentNOTAM = null;
-        for(int i = 0; i< allFieldData.size();i++){
-            for(int j=0;j<response.length();j++){
-                try {
-                    currentNOTAM = response.getJSONObject(j);
-                    if(currentNOTAM.getString("id").contains("SWEN") && currentNOTAM.getString("location").equals(allFieldData.get(i).getIcao())){
-                        allFieldData.get(i).setSnowtamID(currentNOTAM.getString("key"));
-                        allFieldData.get(i).setRawSnowtam(currentNOTAM.getString("all"));
-                        allFieldData.get(i).setStateCode(currentNOTAM.getString("StateCode"));
-                        allFieldData.get(i).setStateName(currentNOTAM.getString("StateName"));
-                        SnowtamParser.parseSnowtam(allFieldData.get(i));
-                        break;
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
 }

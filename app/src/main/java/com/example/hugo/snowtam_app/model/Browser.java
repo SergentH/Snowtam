@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Browser {
-    public static ArrayList<FieldData> browse(String ICAOList, Context context, Intent myIntent){
+    public static ArrayList<FieldData> browse(String ICAOList){
         ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
         String[] ICAOtable = ICAOList.trim().split("\\s+");
 
@@ -18,24 +18,8 @@ public class Browser {
         }
 
         URL myURL = new URL();
-        SnowtamRequestService.sendSnowtamRequest(myURL.createRequestURL(allFieldData),context, allFieldData, myIntent);
+        SnowtamRequestService.threadSendSnowtamRequest(myURL.createRequestURL(allFieldData),allFieldData);
         AirfieldRequestService.threadSendAirfieldRequest(allFieldData);
-        return allFieldData;
-    }
-
-    public static ArrayList<FieldData> fakeBrowse(String ICAOList, Context context, Intent myIntent){
-        ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
-        String[] ICAOtable = ICAOList.trim().split("\\s+");
-
-        for(int i = 0; i<ICAOtable.length; i++){
-            FieldData newField = new FieldData(ICAOtable[i]);
-            allFieldData.add(newField);
-        }
-
-        URL myURL = new URL();
-        SnowtamRequestService.fakeSendSnowtamRequest(myURL.createRequestURL(allFieldData),context, allFieldData, myIntent);
-        //AirfieldRequestService.threadSendAirfieldRequest(allFieldData);
-
         return allFieldData;
     }
 
