@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Browser {
-    public static ArrayList<FieldData> browse(String ICAOList, Context context, Intent myIntent){
+    public static ArrayList<FieldData> browse(String ICAOList){
         ArrayList<FieldData> allFieldData = new ArrayList<FieldData>();
         String[] ICAOtable = ICAOList.trim().split("\\s+");
 

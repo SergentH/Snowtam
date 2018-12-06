@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<FieldData>  dummyTestBrowser(){
         String ICAOList = new String("ENBR ENGM");
         Intent myIntent = new Intent();
-        ArrayList<FieldData> myData = Browser.browse(ICAOList, getApplicationContext(), myIntent);
+        ArrayList<FieldData> myData = Browser.browse(ICAOList);
         return myData;
     }
 
